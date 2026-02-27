@@ -29,19 +29,17 @@
 @layer base {
   :root {
     --body-color: #000;
-    --primary-color: #3e4095; /* base */
-    --primary-hover-color: #2c2f7a; /* darker hover */
-    --primary-color-light: #e0e1f5; /* lighter variant for backgrounds */
-    --secondary-color: #f39a2eea;
-    --secondary-hover-color: #d97706; /* darker hover */
-    --secondary-color-light: #fcd34d; /* lighter variant for backgrounds */
+    --primary-color: #101828; /* base */
+    --primary-hover-color: #0d1a2b; /* darker hover */
+    --primary-color-light: #1a2533; /* lighter variant for backgrounds */
+    --secondary-color: #fad662;
+    --secondary-hover-color: #6d551f; /* darker hover */
+    --secondary-color-light: #fff4d6; /* lighter variant for backgrounds */
 
-    --title-color: #333;
-    --text-color: #7c7c7c;
+    --title-color: #f3f4f6;
+    --text-color: #d1d5dc;
     --link-color: #3b82f6;
-    --head-color: #1f2937;
     --gray-color: #f8f8f8;
-    --text-secondary-color: #6b7280;
     --text-green: #22c55e;
     --border-color: #e5e7eb;
     --text-dark: #101828;

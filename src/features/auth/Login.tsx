@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { AUTH_PAGES } from "@/constants/auth";
 import { UserAuthWrapper } from "@/features/auth/UserAuthWrapper";
@@ -14,40 +15,31 @@ import { LoadingScreen } from "@/components/general-components/compnents";
 export default function Login() {
   const { user } = useAuthStore();
   const router = useRouter();
-  const [nextPage, setNextPage] = useState<AuthFormStepsType>();
-  const [isLoggedOut, setIsLoggedOut] = useState(false);
+  const [nextPage, setNextPage] = useState<AuthFormStepsType>(AUTH_PAGES.LOGIN);
 
-  const gotoAuthFormPage = (stepKey: AuthFormStepsType) => {
-    setNextPage(stepKey);
-  };
+  // Redirect logged-in users
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, [user, router]);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     setIsLoggedOut(false);
-  //     router.push("/dashboard");
-  //   } else {
-  //     setIsLoggedOut(true);
-  //     setNextPage(AUTH_PAGES.LOGIN);
-  //   }
-  // }, [user, router]);
-
-  if (!isLoggedOut) {
-    return <LoadingScreen />;
+  // Show loading while redirecting
+  if (user) {
+    return <LoadingScreen message="Redirecting to dashboard..." />;
   }
 
   return (
     <UserAuthWrapper>
-      {nextPage === AUTH_PAGES.LOGIN && (
-        <Auth gotoAuthFormPage={gotoAuthFormPage} />
-      )}
+      {nextPage === AUTH_PAGES.LOGIN && <Auth gotoAuthFormPage={setNextPage} />}
       {nextPage === AUTH_PAGES.RESET_PASSWORD && (
-        <ResetPassword gotoAuthFormPage={gotoAuthFormPage} />
+        <ResetPassword gotoAuthFormPage={setNextPage} />
       )}
       {nextPage === AUTH_PAGES.VERIFY_ACCOUNT && (
-        <VerifyAccount gotoAuthFormPage={gotoAuthFormPage} />
+        <VerifyAccount gotoAuthFormPage={setNextPage} />
       )}
       {nextPage === AUTH_PAGES.CREATE_PASSWORD && (
-        <CreatePassword gotoAuthFormPage={gotoAuthFormPage} />
+        <CreatePassword gotoAuthFormPage={setNextPage} />
       )}
     </UserAuthWrapper>
   );

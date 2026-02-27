@@ -33,7 +33,7 @@ export const Button: React.FC<ButtonProps> = ({
   // ✅ Backgrounds with darker hover states
   const buttonStyles =
     variant === "primary"
-      ? "bg-gradient-to-r from-[var(--primary-hover-color)] to-[var(--secondary-hover-color)] bg-left transition-[background-position,transform] duration-400 ease-in-out transform text-white"
+      ? "bg-(--secondary-hover-color) bg-left transition-[background-position,transform] duration-400 ease-in-out transform text-white"
       : variant === "secondary"
         ? "bg-gray-200 hover:bg-gray-600 text-black hover:text-white"
         : "bg-red-500 hover:bg-red-700 text-white";

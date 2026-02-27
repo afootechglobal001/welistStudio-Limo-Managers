@@ -48,14 +48,14 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       <fieldset className="flex flex-col w-full">
         <div
           className={`relative w-full 
-        rounded-md bg-slate-50 
+        rounded-md bg-(--primary-color)
         transition-all duration-200  ${
-          !isOperator ? " border-2 border-gray-200" : ""
+          !isOperator ? " border-2 border-gray-500" : ""
         } ${borderClass} ${className ?? ""} ${
           message ? "border-red-500" : "focus-within:border-(--secondary-color)"
         }
             focus-within:ring-0
-            focus-within:bg-white
+            focus-within:bg-(--primary-color)
             focus-within:border-2
           `}
         >
@@ -66,7 +66,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
             autoComplete="new-password"
             aria-invalid={message ? "true" : "false"}
             aria-describedby={message ? `${id}-message` : undefined}
-            className={`block p-4 w-full text-xl text-black bg-white autofill:bg-inherit! active:bg-transparent! placeholder-transparent rounded-lg border-0 focus:outline-none peer ${
+            className={`block p-4 w-full text-xl bg-(--primary-color) text-white autofill:bg-inherit! active:bg-transparent! placeholder-transparent rounded-lg border-0 focus:outline-none peer ${
               disabled ? "bg-gray-100!" : ""
             }`}
             style={{ fontStyle: "normal", fontWeight: 400 }}
@@ -77,7 +77,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
           {label && (
             <label
               htmlFor={id}
-              className={`absolute -top-2.5 bg-white left-3 text-gray-500 duration-100 transform text-[13px] px-2 ${
+              className={`absolute -top-2.5 bg-(--primary-color) left-3 text-(--text-color) duration-100 transform text-[13px] px-2 ${
                 !placeholder &&
                 "peer-placeholder-shown:top-5 peer-focus:-top-2.5  peer-focus:px-2"
               } ${!message ? "peer-focus:text-(--secondary-color)" : ""} ${

@@ -54,7 +54,7 @@ export const Auth: React.FC<AuthFormStepsProps> = (props) => {
 
   return (
     <>
-      <section className="flex flex-col gap-5 justify-center items-start animate-fade-up">
+      <section className="flex flex-col gap-5 justify-center items-start animate-fade-down">
         <div className="flex flex-col gap-2">
           <div className="w-50">
             <Image
@@ -66,7 +66,7 @@ export const Auth: React.FC<AuthFormStepsProps> = (props) => {
               unoptimized
             />
           </div>
-          <h1 className="text-2xl text-[#1F2937] font-bold-custom">
+          <h1 className="text-2xl text-gray-100 font-bold-custom">
             Welcome <span className="text-(--secondary-color)">Back!</span>
           </h1>
           <p className="text-(--text-color) text-[16px]">
@@ -93,7 +93,7 @@ export const Auth: React.FC<AuthFormStepsProps> = (props) => {
         <p className="text-sm text-(--text-color)">
           Forgot Password?{" "}
           <span
-            className="text-(--primary-color) font-medium-custom cursor-pointer hover:underline"
+            className="text-(--secondary-color) font-medium-custom cursor-pointer hover:underline"
             onClick={resetPassword}
           >
             Reset Password Here
@@ -114,7 +114,7 @@ export const Auth: React.FC<AuthFormStepsProps> = (props) => {
           <p className="text-sm text-(--text-color)">
             Don&apos;t have an account?{" "}
             <span
-              className="text-(--primary-color) font-medium-custom cursor-pointer hover:underline"
+              className="text-(--secondary-color) font-medium-custom cursor-pointer hover:underline"
               onClick={resetPassword}
             >
               Sign Up Here
@@ -123,11 +123,11 @@ export const Auth: React.FC<AuthFormStepsProps> = (props) => {
           <p className="text-sm text-(--text-color) text-center">
             By logging in to this portal, you agree to our
             <br />
-            <span className="text-(--primary-color) font-medium-custom cursor-pointer hover:underline">
+            <span className="text-(--secondary-color) font-medium-custom cursor-pointer hover:underline">
               Privacy Policy
             </span>{" "}
             and{" "}
-            <span className="text-(--primary-color) font-medium-custom cursor-pointer hover:underline">
+            <span className="text-(--secondary-color) font-medium-custom cursor-pointer hover:underline">
               Terms of Service
             </span>
             .

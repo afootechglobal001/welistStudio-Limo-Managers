@@ -5,9 +5,6 @@ import { AuthLoginSchema, AuthLoginType } from "@/types/auth/schema";
 import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-// import { useLogin } from "@/hooks/admin/useAuth";
-// import { handleAppError } from "@/lib/axios";
-// import { useAuthStore } from "@/store/authStore";
 import Image from "next/image";
 
 interface AuthFormStepsProps {
@@ -16,7 +13,6 @@ interface AuthFormStepsProps {
 
 export const Auth: React.FC<AuthFormStepsProps> = (props) => {
   const { gotoAuthFormPage } = props;
-  // const { setAuth } = useAuthStore.getState();
   const router = useRouter();
   const {
     register,
@@ -32,20 +28,12 @@ export const Auth: React.FC<AuthFormStepsProps> = (props) => {
     mode: "onChange",
   });
 
-  // const { mutate, isPending } = useLogin();
-  //  const handleLogin = (data: AuthLoginType) => {
-  //     mutate(data, {
-  //       onSuccess: (response) => {
-  //         setAuth(response.data, response.data.token);
-  //         router.push("/admin/dashboard");
-  //       },
-  //       onError: (error) => {
-  //         handleAppError({ showToast: true, error });
-  //       },
-  //     });
-  //   };
   const handleLogin = () => {
     router.push("/dashboard");
+  };
+
+  const handleSignUp = () => {
+    router.push("/sign-up");
   };
 
   const resetPassword = async () => {
@@ -71,7 +59,7 @@ export const Auth: React.FC<AuthFormStepsProps> = (props) => {
           </h1>
           <p className="text-(--text-color) text-[16px]">
             Please enter your details to login to your{" "}
-            <strong>Leaders Tutors External Examination</strong> portal
+            <strong>Limo Managers</strong> portal
           </p>
         </div>
 
@@ -82,14 +70,16 @@ export const Auth: React.FC<AuthFormStepsProps> = (props) => {
           {...register("email")}
           // disabled={isPending}
         />
-        <TextInput
-          id="password"
-          label="Password"
-          type="password"
-          message={errors.password?.message}
-          {...register("password")}
-          //disabled={isPending}
-        />
+        <div className="w-full relative">
+          <TextInput
+            id="password"
+            label="Password"
+            type="password"
+            message={errors.password?.message}
+            {...register("password")}
+            //disabled={isPending}
+          />
+        </div>
         <p className="text-sm text-(--text-color)">
           Forgot Password?{" "}
           <span
@@ -115,7 +105,7 @@ export const Auth: React.FC<AuthFormStepsProps> = (props) => {
             Don&apos;t have an account?{" "}
             <span
               className="text-(--secondary-color) font-medium-custom cursor-pointer hover:underline"
-              onClick={resetPassword}
+              onClick={handleSignUp}
             >
               Sign Up Here
             </span>

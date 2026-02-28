@@ -1,6 +1,7 @@
 "use client";
 
-import { forwardRef } from "react";
+import Image from "next/image";
+import { forwardRef, useState } from "react";
 
 export type MessageType = "info" | "success" | "warning" | "error";
 
@@ -43,11 +44,12 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
     ref,
   ) => {
     const borderClass = message ? getMessageColor(messageType) : "";
-
+    const [showPassword, setShowPassword] = useState(false);
     return (
-      <fieldset className="flex flex-col w-full">
-        <div
-          className={`relative w-full 
+      <>
+        <fieldset className="flex flex-col w-full">
+          <div
+            className={`relative w-full 
         rounded-md bg-(--primary-color)
         transition-all duration-200  ${
           !isOperator ? " border-2 border-gray-500" : ""
@@ -58,46 +60,73 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
             focus-within:bg-(--primary-color)
             focus-within:border-2
           `}
-        >
-          <input
-            id={id}
-            type={type}
-            placeholder={label}
-            autoComplete="new-password"
-            aria-invalid={message ? "true" : "false"}
-            aria-describedby={message ? `${id}-message` : undefined}
-            className={`block p-4 w-full text-xl bg-(--primary-color) text-white autofill:bg-inherit! active:bg-transparent! placeholder-transparent rounded-lg border-0 focus:outline-none peer ${
-              disabled ? "bg-gray-100!" : ""
-            }`}
-            style={{ fontStyle: "normal", fontWeight: 400 }}
-            disabled={disabled}
-            ref={ref}
-            {...rest}
-          />
-          {label && (
-            <label
-              htmlFor={id}
-              className={`absolute -top-2.5 bg-(--primary-color) left-3 text-(--text-color) duration-100 transform text-[13px] px-2 ${
-                !placeholder &&
-                "peer-placeholder-shown:top-5 peer-focus:-top-2.5  peer-focus:px-2"
-              } ${!message ? "peer-focus:text-(--secondary-color)" : ""} ${
-                message ? borderClass : ""
-              }`}
-            >
-              {label}
-            </label>
-          )}
-        </div>
-        {message && (
-          <p
-            id={`${id}-message`}
-            className={`mt-1 text-xs ${getMessageColor(messageType)}`}
-            role="alert"
           >
-            {message}
-          </p>
+            <input
+              id={id}
+              type={
+                type === "password"
+                  ? showPassword
+                    ? "text"
+                    : "password"
+                  : type
+              }
+              placeholder={label}
+              autoComplete="new-password"
+              aria-invalid={message ? "true" : "false"}
+              aria-describedby={message ? `${id}-message` : undefined}
+              className={`block p-4 w-full text-xl bg-(--primary-color) text-white autofill:bg-inherit! active:bg-transparent! placeholder-transparent rounded-lg border-0 focus:outline-none peer ${
+                disabled ? "bg-gray-100!" : ""
+              }`}
+              style={{ fontStyle: "normal", fontWeight: 400 }}
+              disabled={disabled}
+              ref={ref}
+              {...rest}
+            />
+            {label && (
+              <label
+                htmlFor={id}
+                className={`absolute -top-2.5 bg-(--primary-color) left-3 text-(--text-color) duration-100 transform text-[13px] px-2 ${
+                  !placeholder &&
+                  "peer-placeholder-shown:top-5 peer-focus:-top-2.5  peer-focus:px-2"
+                } ${!message ? "peer-focus:text-(--secondary-color)" : ""} ${
+                  message ? borderClass : ""
+                }`}
+              >
+                {label}
+              </label>
+            )}
+          </div>
+          {message && (
+            <p
+              id={`${id}-message`}
+              className={` mt-1 text-xs ${getMessageColor(messageType)}`}
+              role="alert"
+            >
+              {message}
+            </p>
+          )}
+        </fieldset>
+        {type === "password" && (
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-3 top-1/2 -translate-y-1/2"
+          >
+            <Image
+              src={
+                showPassword
+                  ? "/assets/svgs/eye-off.svg"
+                  : "/assets/svgs/eye.svg"
+              }
+              alt="Toggle confirm password visibility"
+              className="w-5 h-5"
+              width={0}
+              height={0}
+              unoptimized
+            />
+          </button>
         )}
-      </fieldset>
+      </>
     );
   },
 );

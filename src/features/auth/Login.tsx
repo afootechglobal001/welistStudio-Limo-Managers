@@ -1,13 +1,10 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { AUTH_PAGES } from "@/constants/auth";
 import { UserAuthWrapper } from "@/features/auth/UserAuthWrapper";
 import { Auth } from "./Auth";
 import { AuthFormStepsType } from "@/types/auth/auth";
 import { ResetPassword } from "./ResetPassword";
-import { VerifyAccount } from "./VerifyAccount";
-import { CreatePassword } from "./CreatePassword";
 import { useAuthStore } from "@/store/authStore";
 import { useRouter } from "next/navigation";
 import { LoadingScreen } from "@/components/general-components/compnents";
@@ -34,12 +31,6 @@ export default function Login() {
       {nextPage === AUTH_PAGES.LOGIN && <Auth gotoAuthFormPage={setNextPage} />}
       {nextPage === AUTH_PAGES.RESET_PASSWORD && (
         <ResetPassword gotoAuthFormPage={setNextPage} />
-      )}
-      {nextPage === AUTH_PAGES.VERIFY_ACCOUNT && (
-        <VerifyAccount gotoAuthFormPage={setNextPage} />
-      )}
-      {nextPage === AUTH_PAGES.CREATE_PASSWORD && (
-        <CreatePassword gotoAuthFormPage={setNextPage} />
       )}
     </UserAuthWrapper>
   );

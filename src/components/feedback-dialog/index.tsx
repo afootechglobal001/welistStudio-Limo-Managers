@@ -77,7 +77,7 @@ export const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
   ) : (
     <div className="w-full h-full flex items-center justify-center">
       <div
-        className={`w-[90%] max-w-[500px] min-h-[250px] m-auto bg-white rounded-xl p-10 flex flex-col gap-3 justify-center items-center text-center border-2 ${borderClass} `}
+        className={`w-[90%] max-w-[500px] min-h-[250px] m-auto bg-gray-900 rounded-xl p-10 flex flex-col gap-3 justify-center items-center text-center border-2 ${borderClass} `}
         role="document"
       >
         {icon && (
@@ -89,7 +89,7 @@ export const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
         {title && (
           <h3
             id="feedback-dialog-title"
-            className="font-bold-custom text-lg text-[var(--body-color)]"
+            className="font-bold-custom text-lg text-gray-100"
           >
             {title}
           </h3>

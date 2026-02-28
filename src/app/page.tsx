@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 export default function Page() {
   return (
-    <section className="text-black">
+    <section>
       <span>Website here</span>
     </section>
   );

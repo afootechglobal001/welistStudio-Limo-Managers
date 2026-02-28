@@ -28,7 +28,7 @@ export default function SignUp() {
           <h1 className="text-2xl text-gray-100 font-bold-custom">
             Client <span className="text-(--secondary-color)">Sign Up!</span>
           </h1>
-          <p className="text-(--text-color) text-[16px]">
+          <p>
             Kindly provide the required information to{" "}
             <strong>sign up to Limo Managers Client Portal.</strong>
           </p>

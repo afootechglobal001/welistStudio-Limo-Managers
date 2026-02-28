@@ -15,9 +15,7 @@ export default function VerifyAccount() {
       {nextPage === AUTH_PAGES.VERIFY_ACCOUNT && (
         <OtpVerification gotoAuthFormPage={setNextPage} />
       )}
-      {nextPage === AUTH_PAGES.CREATE_PASSWORD && (
-        <CreatePassword gotoAuthFormPage={setNextPage} />
-      )}
+      {nextPage === AUTH_PAGES.CREATE_PASSWORD && <CreatePassword />}
     </UserAuthWrapper>
   );
 }

@@ -116,7 +116,7 @@ export const OtpVerification: React.FC<AuthFormStepsProps> = (props) => {
               onKeyDown={(e) => handleKeyDown(e, i)}
               maxLength={1}
               type="text"
-              className="h-15 w-15 border border-black/20 rounded-md  bg-white  text-xl text-(--primary-color) focus:outline-none peer focus:bg-white focus:shadow-lg flex justify-center items-center text-center font-medium-custom"
+              className="h-15 w-15 border border-gray-500 rounded-md  bg-(--primary-color)  text-xl text-white focus:outline-none peer  focus:shadow-lg flex justify-center items-center text-center font-medium-custom"
             />
           );
         })}

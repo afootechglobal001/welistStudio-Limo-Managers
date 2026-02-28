@@ -5,7 +5,7 @@ import { Modal } from "../dialog-box/Modal";
 import { Button } from "../form/Buttons";
 import { WarningIcon } from "../icons/warningIcon";
 
-export type FeedbackDialogVariant = "success" | "error" | "info" | "warning";
+export type FeedbackDialogVariant = "success" | "failed" | "info" | "warning";
 
 interface FeedbackDialogProps {
   /** Title of the dialog */
@@ -33,7 +33,7 @@ interface FeedbackDialogProps {
 const getVariantIcon = (variant: FeedbackDialogVariant = "info") => {
   const icons = {
     success: <SuccessCheckmark />,
-    error: <FailureIcon />,
+    failed: <FailureIcon />,
     info: <InfoIcon />,
     warning: <WarningIcon />,
   };
@@ -43,11 +43,21 @@ const getVariantIcon = (variant: FeedbackDialogVariant = "info") => {
 const getVariantBorder = (variant: FeedbackDialogVariant = "info") => {
   const borders = {
     success: "border-green-500",
-    error: "border-red-400",
+    failed: "border-red-400",
     info: "border-blue-500",
     warning: "border-yellow-500",
   };
   return borders[variant];
+};
+
+const getVariantBtn = (variant: FeedbackDialogVariant = "info") => {
+  const btnBg = {
+    success: "bg-green-500",
+    failed: "bg-red-400",
+    info: "bg-blue-500",
+    warning: "bg-yellow-500",
+  };
+  return btnBg[variant];
 };
 
 export const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
@@ -69,19 +79,22 @@ export const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
 
   const content = isLoading ? (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="w-[300px] space-y-2 min-h-[200px] bg-white rounded-xl p-10 flex flex-col gap-3 justify-center items-center text-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--secondary-color)]"></div>
+      <div className="w-75 space-y-2 min-h-50 bg-white rounded-xl p-10 flex flex-col gap-3 justify-center items-center text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-(--secondary-color)"></div>
         <span>{loadingText || "Loading..."}</span>
       </div>
     </div>
   ) : (
     <div className="w-full h-full flex items-center justify-center">
       <div
-        className={`w-[90%] max-w-[500px] min-h-[250px] m-auto bg-gray-900 rounded-xl p-10 flex flex-col gap-3 justify-center items-center text-center border-2 ${borderClass} `}
+        className={`w-[90%] max-w-125 min-h-62.5 m-auto bg-gray-900 rounded-xl p-10 flex flex-col gap-3 justify-center items-center text-center border-2 ${borderClass} `}
         role="document"
       >
         {icon && (
-          <div className="flex-shrink-0 mb-2" aria-hidden="true">
+          <div
+            className="shrink-0 mb-2 w-17.5 h-17.5 rounded-full flex items-center justify-center bg-white/50"
+            aria-hidden="true"
+          >
             {icon}
           </div>
         )}
@@ -96,9 +109,7 @@ export const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
         )}
 
         {text && (
-          <p className="text-[var(--text-color)] text-sm leading-relaxed">
-            {text}
-          </p>
+          <p className="text-(--text-color) text-sm leading-relaxed">{text}</p>
         )}
         <div className="w-full mt-2 flex gap-4">
           {onClose && (
@@ -114,11 +125,7 @@ export const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
               text={btnText}
               onClick={onClick}
               fullWidth
-              variant={
-                variant === "error" || variant === "warning"
-                  ? "danger"
-                  : "primary"
-              }
+              className={getVariantBtn(variant)}
             />
           )}
         </div>

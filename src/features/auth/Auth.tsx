@@ -57,7 +57,7 @@ export const Auth: React.FC<AuthFormStepsProps> = (props) => {
           <h1 className="text-2xl text-gray-100 font-bold-custom">
             Welcome <span className="text-(--secondary-color)">Back!</span>
           </h1>
-          <p className="text-(--text-color) text-[16px]">
+          <p>
             Please enter your details to login to your{" "}
             <strong>Limo Managers</strong> portal
           </p>

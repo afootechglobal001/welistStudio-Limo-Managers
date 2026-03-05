@@ -8,7 +8,7 @@ import { useState } from "react";
 export const SideBar = () => {
   const [activeLinks, setActiveLinks] = useState("Dashboard");
   return (
-    <section className="fixed w-50 h-full bg-white/8 left-0 top-0 flex flex-col justify-between items-center">
+    <section className="fixed w-60 h-full bg-white/8 left-0 top-0 flex flex-col justify-between items-center">
       <div className="w-full p-4 flex flex-col gap-12 items-start">
         <div className="w-35">
           <Image
@@ -25,7 +25,7 @@ export const SideBar = () => {
             {SIDEBAR_TOP_LINKS.map((link) => (
               <Link href={link.href} key={link.name}>
                 <li
-                  className={`transition-colors duration-300 text-(--text-color)  whitespace-nowrap  flex items-center justify-start gap-1 cursor-pointer hover:bg-white/10 px-4 py-2.5 rounded-lg ${
+                  className={`transition-colors duration-300 text-(--text-color) text-[13px]  whitespace-nowrap  flex items-center justify-start gap-1 cursor-pointer hover:bg-white/10 px-4 py-2.5 rounded-lg ${
                     activeLinks === link.name ? "bg-white/20 text-white" : ""
                   }`}
                   onClick={() => setActiveLinks(link.name)}

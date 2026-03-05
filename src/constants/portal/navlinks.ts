@@ -1,10 +1,18 @@
 import {
   Gauge,
   UserStar,
-  TvMinimalPlay,
-  CalendarSync,
-  ArrowRightLeft,
+  Building,
+  Car,
+  Users,
+  CalendarCheck,
+  Calculator,
+  DollarSign,
+  UserRound,
+  BarChart3,
+  CreditCard,
   Settings2,
+  FileText,
+  Webhook,
   LogOut,
 } from "lucide-react"; // 👈 import icons
 
@@ -28,19 +36,59 @@ export const SIDEBAR_TOP_LINKS = [
     icon: Gauge,
   },
   {
-    name: "Tutorials",
-    href: "/tutorials",
-    icon: TvMinimalPlay,
+    name: "Company Profile",
+    href: "/company-profile",
+    icon: Building,
   },
   {
-    name: "Transactions",
-    href: "/transactions",
-    icon: ArrowRightLeft,
+    name: "Fleet Management",
+    href: "/fleet",
+    icon: Car,
   },
   {
-    name: "Subscriptions",
-    href: "/subscriptions",
-    icon: CalendarSync,
+    name: "Drivers Management",
+    href: "/drivers",
+    icon: Users,
+  },
+  {
+    name: "Bookings",
+    href: "/bookings",
+    icon: CalendarCheck,
+  },
+  {
+    name: "Mileage Calculator",
+    href: "/mileage-calculator",
+    icon: Calculator,
+  },
+  {
+    name: "Pricing Engine",
+    href: "/pricing",
+    icon: DollarSign,
+  },
+  {
+    name: "Customers",
+    href: "/customers",
+    icon: UserRound,
+  },
+  {
+    name: "Reports",
+    href: "/reports",
+    icon: BarChart3,
+  },
+  {
+    name: "Billing & Subscriptions",
+    href: "/billing",
+    icon: CreditCard,
+  },
+  {
+    name: "Invoices",
+    href: "/invoices",
+    icon: FileText,
+  },
+  {
+    name: "API & Webhooks",
+    href: "/billing",
+    icon: Webhook,
   },
 ];
 

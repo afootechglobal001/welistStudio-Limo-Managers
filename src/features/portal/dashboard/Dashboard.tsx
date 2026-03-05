@@ -1,5 +1,6 @@
 "use client";
 import {
+  BarChart3,
   Car,
   ChartNoAxesCombined,
   CircleChevronDown,
@@ -186,7 +187,7 @@ export default function Dashboard() {
           <div className="w-100 flex flex-col justify-between gap-5">
             <div className="w-full bg-white/5 rounded-lg">
               <div className="p-4 border-b border-white/10 w-full flex gap-3 items-center text-sm">
-                <ChartNoAxesCombined className="h-5 w-5 text-(--secondary-color)" />
+                <Car className="h-5 w-5 text-(--secondary-color)" />
                 <p>Fleet Booking</p>
               </div>
               <div className="w-full min-h-50 p-4 flex flex-col gap-4">
@@ -214,7 +215,7 @@ export default function Dashboard() {
             </div>
             <div className="w-full bg-white/5 rounded-lg">
               <div className="p-4 border-b border-white/10 w-full flex gap-3 items-center text-sm">
-                <ChartNoAxesCombined className="h-5 w-5 text-(--secondary-color)" />
+                <BarChart3 className="h-5 w-5 text-(--secondary-color)" />
                 <p>Fleet Revenue Matrix</p>
               </div>
               <div className="w-full h-85 p-4">

@@ -93,3 +93,16 @@ export const convertToDuration = (estimated_learning_time: number): string => {
 
   return parts.join(" ");
 };
+
+export const formatNumberValues = (value: string | number) => {
+  const num = Number(value);
+  if (isNaN(num)) return "";
+
+  if (num < 1000) {
+    return num.toString();
+  } else if (num < 1_000_000) {
+    return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+  } else {
+    return (num / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
+  }
+};

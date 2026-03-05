@@ -20,7 +20,7 @@ export const PageHeader = ({
 }: PageHeaderProps) => {
   return (
     <section
-      className={`relative overflow-hidden bg-[#fffbf0] backdrop-blur-sm border-b border-slate-200/60 ${className} animate-fade-down shadow-[0px_0px_40px_rgba(0,0,0,0.075)]`}
+      className={`relative overflow-hidden bg-white/5 backdrop-blur-sm border-b border-white/8 ${className} animate-fade-down shadow-[0px_0px_40px_rgba(0,0,0,0.075)]`}
     >
       <div className="relative px-8 py-6">
         {addNavigation}
@@ -34,10 +34,10 @@ export const PageHeader = ({
             </div>
 
             <div className="flex-1 min-w-0">
-              <h1 className="text-xl  tracking-normal font-bold bg-linear-to-r from-slate-900 via-amber-900 to-orange-900 bg-clip-text text-transparent mb-1 leading-tight">
+              <h1 className="text-xl  tracking-normal font-bold  text-(--title-color) mb-1 leading-tight">
                 {title}
               </h1>
-              <p className="text-base text-gray-500 tracking-tight max-w-2xl">
+              <p className="text-base tracking-tight max-w-2xl">
                 {description}
               </p>
             </div>

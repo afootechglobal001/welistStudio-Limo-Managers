@@ -32,7 +32,7 @@
     --primary-color: #101828; /* base */
     --primary-hover-color: #0d1a2b; /* darker hover */
     --primary-color-light: #1a2533; /* lighter variant for backgrounds */
-    --secondary-color: #fad662;
+    --secondary-color: rgb(250, 214, 98);
     --secondary-hover-color: #6d551f; /* darker hover */
     --secondary-color-light: #fff4d6; /* lighter variant for backgrounds */
 

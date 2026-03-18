@@ -79,9 +79,14 @@ export const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
 
   const content = isLoading ? (
     <div className="w-full h-full flex items-center justify-center">
-      <div className="w-75 space-y-2 min-h-50 bg-white rounded-xl p-10 flex flex-col gap-3 justify-center items-center text-center">
+      <div
+        className={`w-75 space-y-2 min-h-50 rounded-xl p-10 flex flex-col gap-3 justify-center items-center text-center`}
+      >
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-(--secondary-color)"></div>
-        <span>{loadingText || "Loading..."}</span>
+        {/* Animated text */}
+        <p className="font-medium-custom text-lg animate-pulse">
+          {loadingText || "Loading..."}
+        </p>
       </div>
     </div>
   ) : (
@@ -134,7 +139,11 @@ export const FeedbackDialog: React.FC<FeedbackDialogProps> = ({
   );
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} className={className}>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      className={`!z-[2000] ${className}`}
+    >
       {content}
     </Modal>
   );

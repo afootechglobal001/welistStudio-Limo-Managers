@@ -10,6 +10,7 @@ interface TextInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   isOperator?: boolean;
   message?: string;
   messageType?: MessageType;
+  required?: boolean;
 }
 
 export const getMessageColor = (type: MessageType) => {
@@ -39,6 +40,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       messageType = "error",
       className,
       disabled,
+      required = false,
       ...rest
     },
     ref,
@@ -85,14 +87,15 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
             {label && (
               <label
                 htmlFor={id}
-                className={`absolute -top-2.5 bg-(--primary-color) left-3 text-(--text-color) duration-100 transform text-[13px] px-2 ${
+                className={`absolute -top-2.5 bg-(--primary-color) left-3 text-(--text-color) duration-100 transform text-[13px] px-2 flex items-center gap-2 ${
                   !placeholder &&
-                  "peer-placeholder-shown:top-5 peer-focus:-top-2.5  peer-focus:px-2"
+                  "peer-placeholder-shown:top-5 peer-focus:-top-2.5 peer-focus:px-2"
                 } ${!message ? "peer-focus:text-(--secondary-color)" : ""} ${
                   message ? borderClass : ""
                 }`}
               >
-                {label}
+                <span>{label}</span>
+                {required && <span className="text-red-500">*</span>}
               </label>
             )}
           </div>

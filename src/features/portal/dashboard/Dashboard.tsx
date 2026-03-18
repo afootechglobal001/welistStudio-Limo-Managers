@@ -14,71 +14,10 @@ import { DASHBOARD_CARD_VARIANT } from "@/constants/portal/dashboard";
 import RevenueBarChart from "./RevenueBarChart";
 import FleetRevenueMatrix from "./FleetRevenueMatrix";
 import { FleetBookingsStatistics } from "./FleetBookingsStatistics";
-const generateRandomFleetData = (days = 30) => {
-  const data = [];
-  const today = new Date();
+import { generateRandomFleetData } from "@/utils/generateRandomFleetData";
+import WalletAndSubscriptionPrompt from "./WalletAndSubscriptionPrompt";
 
-  for (let i = days - 1; i >= 0; i--) {
-    const date = new Date(today);
-    date.setDate(today.getDate() - i);
-
-    // Random counts for each fleet type
-    const sedan = Math.floor(Math.random() * 6); // 0-5
-    const sprinter = Math.floor(Math.random() * 5); // 0-4
-    const suv = Math.floor(Math.random() * 4); // 0-3
-    const limosine = Math.floor(Math.random() * 2); // 0-1
-
-    // Amount could be a weighted sum of fleet counts
-    const amount = sedan * 500 + sprinter * 700 + suv * 800 + limosine * 1200;
-
-    data.push({
-      lastUpdatedDate: date.toISOString(),
-      amount,
-      sedan,
-      sprinter,
-      suv,
-      limosine,
-    });
-  }
-
-  return data;
-};
 export default function Dashboard() {
-  // const campaignReportDailyMatrix = [
-  //   {
-  //     lastUpdatedDate: "2025-06-23T10:30:00Z",
-  //     amount: 2186,
-  //     sedan: 2,
-  //     sprinter: 1,
-  //     suv: 3,
-  //     limosine: 0,
-  //   },
-  //   {
-  //     lastUpdatedDate: "2025-06-24T10:30:00Z",
-  //     amount: 3186,
-  //     sedan: 3,
-  //     sprinter: 2,
-  //     suv: 1,
-  //     limosine: 1,
-  //   },
-  //   {
-  //     lastUpdatedDate: "2025-06-25T10:30:00Z",
-  //     amount: 4186,
-  //     sedan: 4,
-  //     sprinter: 3,
-  //     suv: 2,
-  //     limosine: 0,
-  //   },
-  //   {
-  //     lastUpdatedDate: "2025-06-26T10:30:00Z",
-  //     amount: 5186,
-  //     sedan: 5,
-  //     sprinter: 4,
-  //     suv: 3,
-  //     limosine: 2,
-  //   },
-  // ];
-
   // Generate 30 days of random data
   const campaignReportDailyMatrix = generateRandomFleetData(15);
   const fleetRevenueMatrix = {
@@ -98,8 +37,9 @@ export default function Dashboard() {
         }
         title={`Welcome back, Mike!`}
         description="Here's an overview of your dashboard. You can manage your limo fleet, track bookings, and oversee customer interactions all in one place."
-        actions={<div>Wallet balance and subscription expiry goes here</div>}
+        actions={<WalletAndSubscriptionPrompt />}
       />
+
       <section className="p-8 text-(text-color) flex flex-col gap-8">
         <section className="flex gap-5 w-full">
           <div className="w-[calc(100%-400px)] flex flex-col gap-5">

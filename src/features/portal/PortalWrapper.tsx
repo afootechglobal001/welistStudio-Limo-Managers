@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { Header } from "./Header";
-import { LoadingScreen } from "@/components/general-components/compnents";
 import { SideBar } from "@/features/portal/SideBar";
+import { LoadingScreen } from "@/components/general-components/loadingScreen";
 
 type AuthWrapperProps = {
   children: ReactNode;

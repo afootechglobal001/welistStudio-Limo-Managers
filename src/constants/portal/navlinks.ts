@@ -36,6 +36,11 @@ export const SIDEBAR_TOP_LINKS = [
     icon: Gauge,
   },
   {
+    name: "Onboarding",
+    href: "/onboarding",
+    icon: UserStar,
+  },
+  {
     name: "Company Profile",
     href: "/company-profile",
     icon: Building,

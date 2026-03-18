@@ -2,16 +2,17 @@
 
 import { forwardRef } from "react";
 
-type MessageType = "info" | "success" | "warning" | "error";
+export type MessageType = "info" | "success" | "warning" | "error";
 
 interface TextAreaInputProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   isOperator?: boolean;
   message?: string;
   messageType?: MessageType;
+  required?: boolean;
 }
 
-const getMessageColor = (type: MessageType) => {
+export const getMessageColor = (type: MessageType) => {
   switch (type) {
     case "success":
       return "text-green-600 border-green-500";
@@ -37,6 +38,8 @@ const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>(
       messageType = "error",
       className,
       rows = 2,
+      disabled,
+      required = false,
       ...rest
     },
     ref,
@@ -44,48 +47,71 @@ const TextAreaInput = forwardRef<HTMLTextAreaElement, TextAreaInputProps>(
     const borderClass = message ? getMessageColor(messageType) : "";
 
     return (
-      <div>
+      <fieldset className="flex flex-col w-full">
         <div
-          className={`relative z-0 w-full group 
-            rounded-md bg-slate-50 
-            transition-all duration-200  ${
-              !isOperator ? " border-2 border-gray-200" : ""
-            } ${borderClass} ${className ?? ""}
-               focus-within:border-mtn-500
-                focus-within:ring-0
-                focus-within:bg-white
-                focus-within:border-2
-              `}
+          className={`relative w-full 
+            rounded-md bg-(--primary-color)
+            transition-all duration-200
+            ${!isOperator ? "border-2 border-gray-500" : ""}
+            ${borderClass} ${className ?? ""}
+            ${
+              message
+                ? "border-red-500"
+                : "focus-within:border-(--secondary-color)"
+            }
+            focus-within:ring-0
+            focus-within:bg-(--primary-color)
+            focus-within:border-2
+          `}
         >
           <textarea
             id={id}
+            required={required}
             placeholder={label}
             autoComplete="off"
-            className="block p-4 w-full text-xl text-black bg-white autofill:!bg-inherit active:!bg-transparent placeholder-transparent rounded-lg border-0 focus:outline-none peer"
+            aria-invalid={message ? "true" : "false"}
+            aria-describedby={message ? `${id}-message` : undefined}
+            className={`block p-4 w-full text-xl bg-(--primary-color) text-white 
+              autofill:bg-inherit! active:bg-transparent! placeholder-transparent 
+              rounded-lg border-0 focus:outline-none peer ${
+                disabled ? "bg-gray-100!" : ""
+              }`}
             style={{ fontStyle: "normal", fontWeight: 400 }}
             ref={ref}
             rows={rows}
+            disabled={disabled}
             {...rest}
           />
+
           {label && (
             <label
               htmlFor={id}
-              className={`absolute top-[-10px] bg-white left-3 text-subtitle duration-100 transform text-xs px-2 ${
-                !placeholder &&
-                "peer-placeholder-shown:top-5 peer-focus:top-[-10px] peer-focus:text-subtitle peer-focus:px-2 peer-focus:text-mtn-500"
-              } ${message ? borderClass : ""}`}
+              className={`absolute -top-2.5 bg-(--primary-color) left-3 
+                text-(--text-color) duration-100 transform text-[13px] px-2 flex items-center gap-2
+                ${
+                  !placeholder &&
+                  "peer-placeholder-shown:top-5 peer-focus:-top-2.5 peer-focus:px-2"
+                }
+                ${!message ? "peer-focus:text-(--secondary-color)" : ""}
+                ${message ? borderClass : ""}
+              `}
             >
-              {label}
+              <span>{label}</span>
+              {required && <span className="text-red-500">*</span>}
             </label>
           )}
         </div>
 
         {message && (
-          <p className={`mt-1 text-xs ${getMessageColor(messageType)}`}>
+          <p
+            id={`${id}-message`}
+            className={`mt-1 text-xs ${getMessageColor(messageType)}`}
+            role="alert"
+          >
             {message}
           </p>
         )}
-      </div>
+      </fieldset>
     );
   },
 );

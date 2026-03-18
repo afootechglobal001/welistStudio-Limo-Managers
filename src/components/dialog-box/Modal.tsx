@@ -64,13 +64,13 @@ export const Modal: React.FC<ModalProps> = ({
 
   return createPortal(
     <div
-      className={`fixed w-full h-full inset-0 z-[999] overflow-y-auto bg-black/50 transition-opacity duration-200 ease-in-out ${className}`}
+      className={`fixed w-full h-full inset-0 z-999 overflow-y-auto bg-black/40 transition-opacity duration-200 ease-in-out ${className} backdrop-blur-[5px] backdrop-brightness-75 backdrop-contrast-100`}
       role="dialog"
       aria-modal="true"
     >
       <div
         ref={modalRef}
-        className={`w-full h-full relative transform transition-all duration-200 ease-in-out z-[1000]`}
+        className={`w-full h-full relative transform transition-all duration-200 ease-in-out z-1000`}
         role="document"
       >
         {children}

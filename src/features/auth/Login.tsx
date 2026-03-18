@@ -7,7 +7,7 @@ import { AuthFormStepsType } from "@/types/auth/auth";
 import { ResetPassword } from "./ResetPassword";
 import { useAuthStore } from "@/store/authStore";
 import { useRouter } from "next/navigation";
-import { LoadingScreen } from "@/components/general-components/compnents";
+import { LoadingScreen } from "@/components/general-components/loadingScreen";
 
 export default function Login() {
   const { user } = useAuthStore();

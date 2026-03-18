@@ -27,7 +27,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   const currentSize =
     size === "sm"
-      ? "h-[35px] text-sm gap-1.5 hover:gap-4 rounded-[7px]"
+      ? "h-[35px] text-sm gap-1.5 hover:gap-3 rounded-[7px]"
       : "h-[55px] text-[15px] gap-2 hover:gap-5 rounded-[10px]"; // lg default
 
   // ✅ Backgrounds with darker hover states

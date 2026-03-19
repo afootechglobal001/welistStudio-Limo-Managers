@@ -18,8 +18,11 @@ import { ProvideCompanyDetails } from "./ProvideCompanyDetails";
 import { ContactPersonDetails } from "./ContactPersonDetails";
 import { PaymentGatewayDetails } from "./PaymentGatewayDetails";
 import { SelectSubscriptionPlan } from "./SelectSubscriptionPlan";
+import { useAuthStore } from "@/store/authStore";
+import cookies from "js-cookie";
 
 export default function Onboarding() {
+  const { setAuth, user } = useAuthStore();
   const router = useRouter();
   const onboardingSuccessToggle = useToggle();
   const provideCompanyDetailsModalToggle = useToggle();
@@ -50,6 +53,11 @@ export default function Onboarding() {
   };
 
   const gotoDashboard = () => {
+    if (!user) return;
+    setAuth(user, user.token, true);
+    // Set cookies
+    cookies.set("user", JSON.stringify(user)); // 7 days
+    cookies.set("onboardingCompleted", "true");
     router.push("/dashboard");
   };
   return (

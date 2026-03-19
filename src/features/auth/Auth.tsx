@@ -6,6 +6,8 @@ import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
+import { useAuthStore } from "@/store/authStore";
+import cookies from "js-cookie";
 
 interface AuthFormStepsProps {
   gotoAuthFormPage: (stepKey: AuthFormStepsType) => void;
@@ -14,6 +16,7 @@ interface AuthFormStepsProps {
 export const Auth: React.FC<AuthFormStepsProps> = (props) => {
   const { gotoAuthFormPage } = props;
   const router = useRouter();
+  const { setAuth } = useAuthStore.getState();
   const {
     register,
     // handleSubmit,
@@ -29,6 +32,26 @@ export const Auth: React.FC<AuthFormStepsProps> = (props) => {
   });
 
   const handleLogin = () => {
+    const user = {
+      token: "fake-jwt-token",
+      id: "1",
+      email: "johndoe@example.com",
+      first_name: "John",
+      last_name: "Doe",
+      phone_number: null,
+      last_active: new Date().toISOString(), // ISO date string
+      status: "Active",
+      middle_name: null,
+      onboardingCompleted: false,
+    };
+    setAuth(user, user.token, user.onboardingCompleted);
+    // Set cookies
+    cookies.set("user", JSON.stringify(user)); // 7 days
+    cookies.set(
+      "onboardingCompleted",
+      user.onboardingCompleted ? "true" : "false",
+    );
+
     router.push("/dashboard");
   };
 

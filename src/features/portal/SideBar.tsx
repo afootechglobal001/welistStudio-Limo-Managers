@@ -1,79 +1,123 @@
 "use client";
-
+import { FeedbackDialog } from "@/components/feedback-dialog";
 import {
   SIDEBAR_TOP_LINKS,
   SIDEBAR_BOTTOM_LINKS,
 } from "@/constants/portal/navlinks";
+import useToggle from "@/hooks/useToggle";
+import { useAuthStore } from "@/store/authStore";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation"; // Next.js 13+ client router hook
-
+import { usePathname, useRouter } from "next/navigation"; // Next.js 13+ client router hook
+import cookies from "js-cookie";
 export const SideBar = () => {
+  const { clearAuth, onboardingCompleted } = useAuthStore();
+  const router = useRouter();
   const pathname = usePathname(); // Current path
 
   // Helper function to check if a link is active
   const isActive = (href: string) => {
     return pathname === href;
   };
-
+  const logOutModalToggle = useToggle();
+  const handleLogout = () => {
+    clearAuth();
+    cookies.remove("user");
+    cookies.remove("onboardingCompleted");
+    router.push("/login");
+  };
   return (
-    <section className="fixed w-60 h-full bg-white/8 left-0 top-0 flex flex-col justify-between items-center">
-      <div className="w-full p-4 flex flex-col gap-12 items-start">
-        <div className="w-35">
-          <Image
-            src="/body-pix/logo.png"
-            alt="Vector"
-            className="w-full h-auto"
-            width={0}
-            height={0}
-            unoptimized
-          />
+    <>
+      <section className="fixed w-60 h-full bg-white/8 left-0 top-0 flex flex-col justify-between items-center">
+        <div className="w-full p-4 flex flex-col gap-12 items-start">
+          <div className="w-35">
+            <Image
+              src="/body-pix/logo.png"
+              alt="Vector"
+              className="w-full h-auto"
+              width={0}
+              height={0}
+              unoptimized
+            />
+          </div>
+
+          <nav className="w-full">
+            <ul className="flex flex-col gap-3">
+              {SIDEBAR_TOP_LINKS.map((link) => {
+                // hide based on onboarding
+                if (onboardingCompleted !== link.onboarded) return null;
+
+                return (
+                  <Link href={link.href} key={link.name}>
+                    <li
+                      className={`transition-colors duration-300 text-(--text-color) text-[13px] whitespace-nowrap flex items-center justify-start gap-1 cursor-pointer hover:bg-white/10 px-4 py-2.5 rounded-lg ${
+                        isActive(link.href) ? "bg-white/20 text-white" : ""
+                      }`}
+                    >
+                      {link.icon && (
+                        <link.icon
+                          size={16}
+                          className="inline-block mr-1 text-(--secondary-color)"
+                        />
+                      )}
+                      <span>{link.name}</span>
+                    </li>
+                  </Link>
+                );
+              })}
+            </ul>
+          </nav>
         </div>
 
-        <nav className="w-full">
+        <nav className="w-full p-4">
           <ul className="flex flex-col gap-3">
-            {SIDEBAR_TOP_LINKS.map((link) => (
-              <Link href={link.href} key={link.name}>
-                <li
-                  className={`transition-colors duration-300 text-(--text-color) text-[13px] whitespace-nowrap flex items-center justify-start gap-1 cursor-pointer hover:bg-white/10 px-4 py-2.5 rounded-lg ${
-                    isActive(link.href) ? "bg-white/20 text-white" : ""
-                  }`}
-                >
-                  {link.icon && (
+            {SIDEBAR_BOTTOM_LINKS.map((link) => {
+              // 👉 LOGOUT BUTTON
+              if (link.action === "logout") {
+                return (
+                  <li
+                    key={link.name}
+                    onClick={logOutModalToggle.open}
+                    className="transition-colors duration-300 text-(--text-color) whitespace-nowrap flex items-center gap-1 cursor-pointer hover:bg-white/10 px-4 py-2.5 rounded-lg"
+                  >
                     <link.icon
                       size={16}
                       className="inline-block mr-1 text-(--secondary-color)"
                     />
-                  )}
-                  <span>{link.name}</span>
-                </li>
-              </Link>
-            ))}
+                    <span>{link.name}</span>
+                  </li>
+                );
+              }
+
+              // 👉 NORMAL LINKS
+              return (
+                <Link href={link.href ?? "#"} key={link.name}>
+                  <li
+                    className={`transition-colors duration-300 text-(--text-color) whitespace-nowrap flex items-center gap-1 cursor-pointer hover:bg-white/10 px-4 py-2.5 rounded-lg ${
+                      isActive(link.href ?? "#") ? "bg-white/20 text-white" : ""
+                    }`}
+                  >
+                    <link.icon
+                      size={16}
+                      className="inline-block mr-1 text-(--secondary-color)"
+                    />
+                    <span>{link.name}</span>
+                  </li>
+                </Link>
+              );
+            })}
           </ul>
         </nav>
-      </div>
-
-      <nav className="w-full p-4">
-        <ul className="flex flex-col gap-3">
-          {SIDEBAR_BOTTOM_LINKS.map((link) => (
-            <Link href={link.href} key={link.name}>
-              <li
-                className={`transition-colors duration-300 text-(--text-color) whitespace-nowrap flex items-center justify-start gap-1 cursor-pointer hover:bg-white/10 px-4 py-2.5 rounded-lg ${
-                  isActive(link.href) ? "bg-white/20 text-white" : ""
-                }`}
-              >
-                {link.icon && (
-                  <link.icon
-                    size={16}
-                    className="inline-block mr-1 text-(--secondary-color)"
-                  />
-                )}
-                <span>{link.name}</span>
-              </li>
-            </Link>
-          ))}
-        </ul>
-      </nav>
-    </section>
+      </section>
+      <FeedbackDialog
+        variant="failed"
+        title="Are you sure?"
+        text="If you log out, you will need to enter your credentials again to access the portal."
+        btnText="Yes, Log Out"
+        onClick={handleLogout}
+        onClose={logOutModalToggle.close}
+        isOpen={logOutModalToggle.isOpen}
+      />
+    </>
   );
 };

@@ -27,7 +27,7 @@ export default function WalletAndSubscriptionPrompt() {
           </div>
           <div>
             <p className="text-sm text-gray-400">Subscription</p>
-            <p className="text-lg font-medium-custom">Expiring in 45 days</p>
+            <p className="text-lg font-medium-custom">Expiring in 29 days</p>
           </div>
         </div>
         <Button text="Renew" size="sm" />

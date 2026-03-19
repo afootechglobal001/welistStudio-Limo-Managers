@@ -52,3 +52,48 @@ export const COUNTRIES = [
   { label: "Japan", value: "JP" },
   { label: "Brazil", value: "BR" },
 ];
+
+export const SUBSCRIPTION_PLAN = {
+  MONTHLY: "monthly",
+  ANNUALLY: "annually",
+};
+
+export const subscriptionPlans = [
+  {
+    title: "Billed Monthly",
+    value: SUBSCRIPTION_PLAN.MONTHLY,
+  },
+  {
+    title: "Billed Annually",
+    value: SUBSCRIPTION_PLAN.ANNUALLY,
+  },
+];
+
+export const SUBSCRIPTION_PRICING_MONTHLY = [
+  {
+    title: "Basic",
+    price: "$12.00",
+  },
+  {
+    title: "Standard",
+    price: "$30.00",
+  },
+  {
+    title: "Advanced",
+    price: "$50.00",
+  },
+];
+export const SUBSCRIPTION_PRICING_ANNUALLY = [
+  {
+    title: "Basic",
+    price: "$100.00",
+  },
+  {
+    title: "Standard",
+    price: "$250.00",
+  },
+  {
+    title: "Advanced",
+    price: "$400.00",
+  },
+];

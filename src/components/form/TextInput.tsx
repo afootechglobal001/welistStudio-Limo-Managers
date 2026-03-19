@@ -76,7 +76,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
               autoComplete="new-password"
               aria-invalid={message ? "true" : "false"}
               aria-describedby={message ? `${id}-message` : undefined}
-              className={`block p-4 w-full text-xl bg-(--primary-color) text-white autofill:bg-inherit! active:bg-transparent! placeholder-transparent rounded-lg border-0 focus:outline-none peer ${
+              className={`block p-4 w-full text-sm bg-(--primary-color) text-white autofill:bg-inherit! active:bg-transparent! placeholder-transparent rounded-lg border-0 focus:outline-none peer ${
                 disabled ? "bg-gray-100!" : ""
               }`}
               style={{ fontStyle: "normal", fontWeight: 400 }}
@@ -89,7 +89,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
                 htmlFor={id}
                 className={`absolute -top-2.5 bg-(--primary-color) left-3 text-(--text-color) duration-100 transform text-[13px] px-2 flex items-center gap-2 ${
                   !placeholder &&
-                  "peer-placeholder-shown:top-5 peer-focus:-top-2.5 peer-focus:px-2"
+                  "peer-placeholder-shown:top-4 peer-focus:-top-2.5 peer-focus:px-2"
                 } ${!message ? "peer-focus:text-(--secondary-color)" : ""} ${
                   message ? borderClass : ""
                 }`}

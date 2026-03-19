@@ -9,11 +9,11 @@ export const ONBOARDING_STEPS = [
   },
   {
     title: "Step 3",
-    description: "Provide payment details",
+    description: "Payment gateway details",
   },
   {
     title: "Step 4",
-    description: "Select a subscription plan",
+    description: "Subscription plan",
   },
 ];
 
@@ -29,7 +29,7 @@ export const ONBOARDING_CHECKLIST = [
       "Please provide the contact details of the primary contact person for your account. This should include their name, email address, and phone number. This person will be responsible for managing the account and receiving important notifications.",
   },
   {
-    title: "Provide payment details",
+    title: "Provide payment gateway details",
     description:
       " Please provide your payment gateway information, including account details and billing information. This will allow you to recieve payment from your customer. We recommend stripe or paypal",
   },
@@ -38,4 +38,17 @@ export const ONBOARDING_CHECKLIST = [
     description:
       "Choose a subscription plan that best fits your business needs. We offer various plans with different features and pricing to accommodate limo companies of all sizes. You can always upgrade or change your plan later as your business grows.",
   },
+];
+
+export const COUNTRIES = [
+  { label: "United States", value: "US" },
+  { label: "Canada", value: "CA" },
+  { label: "United Kingdom", value: "UK" },
+  { label: "Australia", value: "AU" },
+  { label: "Germany", value: "DE" },
+  { label: "France", value: "FR" },
+  { label: "India", value: "IN" },
+  { label: "China", value: "CN" },
+  { label: "Japan", value: "JP" },
+  { label: "Brazil", value: "BR" },
 ];

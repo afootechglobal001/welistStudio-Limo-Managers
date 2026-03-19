@@ -1,12 +1,19 @@
 "use client";
 import { FeedbackDialog } from "@/components/feedback-dialog";
-import { Button, TextAreaInput, TextInput } from "@/components/form";
+import { Button, FormSelect, TextInput } from "@/components/form";
 import { FormSegments } from "@/components/general-components/formSegments";
 import { SideDrawer } from "@/components/side-drawer";
+import { COUNTRIES } from "@/constants/portal/onboarding";
 import useToggle from "@/hooks/useToggle";
+import {
+  ProvideCompanyDetailschema,
+  ProvideCompanyDetailsType,
+} from "@/types/portal/onboarding/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, Building2, UploadCloud } from "lucide-react";
 import Image from "next/image";
 import { useState, ChangeEvent, DragEvent } from "react";
+import { Resolver, useForm } from "react-hook-form";
 
 //////////////////////////////////////////////////////////////////////////////
 type ProvideCompanyDetailsProps = {
@@ -20,6 +27,36 @@ export function ProvideCompanyDetails({
   isOpen,
   handleCompleteSteps,
 }: ProvideCompanyDetailsProps) {
+  const {
+    register,
+    // handleSubmit,
+    control,
+    // reset,
+    formState: { errors },
+  } = useForm<ProvideCompanyDetailsType>({
+    defaultValues: {
+      companyName: "",
+      streetAddress1: "",
+      streetAddress2: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      businessNumber: "",
+      countryId: "",
+      primaryPhoneNumber: "",
+      secondaryPhoneNumber: "",
+      faxNumber: "",
+      serviceEmail: "",
+      notificationEmail: "",
+      website: "",
+      logo: "",
+    },
+    resolver: zodResolver(
+      ProvideCompanyDetailschema,
+    ) as Resolver<ProvideCompanyDetailsType>,
+    mode: "onChange",
+  });
+
   const proceedSubmitCompanyDetailsToggle = useToggle();
   // const [logoFile, setLogoFile] = useState<File | null>(null);
   const [logoPreview, setLogoPreview] = useState<string | null>(null);
@@ -78,14 +115,112 @@ export function ProvideCompanyDetails({
               icon={<Building2 className="w-4 h-4" />}
             >
               <div className="flex flex-col gap-5">
-                <TextInput id="companyName" label="Company Name" required />
-                <TextAreaInput
-                  id="companyAddress"
-                  label="Company Address"
+                <TextInput
+                  id="companyName"
+                  label="Company Name"
                   required
+                  {...register("companyName")}
+                  message={errors.companyName?.message}
                 />
-                <TextInput id="phoneNumber" label="Phone Number" required />
-                <TextInput id="website" label="Website" required />
+                <TextInput
+                  id="streetAddress1"
+                  label="Street Address 1"
+                  required
+                  {...register("streetAddress1")}
+                  message={errors.streetAddress1?.message}
+                />
+
+                <TextInput
+                  id="streetAddress2"
+                  label="Street Address 2"
+                  {...register("streetAddress2")}
+                  message={errors.streetAddress2?.message}
+                />
+
+                <TextInput
+                  id="city"
+                  label="City/town"
+                  required
+                  {...register("city")}
+                  message={errors.city?.message}
+                />
+                <TextInput
+                  id="state"
+                  label="State/Province/Territory"
+                  required
+                  {...register("state")}
+                  message={errors.state?.message}
+                />
+                <TextInput
+                  id="zipCode"
+                  label="ZIP/Postal Code"
+                  required
+                  {...register("zipCode")}
+                  message={errors.zipCode?.message}
+                />
+                <TextInput
+                  id="businessNumber"
+                  label="EIN/Business Number"
+                  {...register("businessNumber")}
+                  message={errors.businessNumber?.message}
+                />
+                <FormSelect
+                  id="countryId"
+                  label="Country"
+                  required
+                  placeholder="Select Here"
+                  {...register("countryId", { required: true })}
+                  control={control}
+                  message={errors.countryId?.message}
+                  options={COUNTRIES}
+                />
+              </div>
+            </FormSegments>
+            <FormSegments
+              title="Provide Company Contact details"
+              icon={<Building2 className="w-4 h-4" />}
+            >
+              <div className="flex flex-col gap-5">
+                <TextInput
+                  id="primaryPhoneNumber"
+                  label="Phone Number"
+                  required
+                  {...register("primaryPhoneNumber")}
+                  message={errors.primaryPhoneNumber?.message}
+                />
+                <TextInput
+                  id="secondaryPhoneNumber"
+                  label="Secondary Phone Number"
+                  {...register("secondaryPhoneNumber")}
+                  message={errors.secondaryPhoneNumber?.message}
+                />
+                <TextInput
+                  id="faxNumber"
+                  label="Fax Number"
+                  {...register("faxNumber")}
+                  message={errors.faxNumber?.message}
+                />
+                <TextInput
+                  id="serviceEmail"
+                  label="Service Email"
+                  required
+                  {...register("serviceEmail")}
+                  message={errors.serviceEmail?.message}
+                />
+                <TextInput
+                  id="notificationEmail"
+                  label="Notification Email"
+                  required
+                  {...register("notificationEmail")}
+                  message={errors.notificationEmail?.message}
+                />
+                <TextInput
+                  id="website"
+                  label="Website"
+                  required
+                  {...register("website")}
+                  message={errors.website?.message}
+                />
               </div>
             </FormSegments>
 
@@ -147,18 +282,7 @@ export function ProvideCompanyDetails({
                 </div>
               </div>
             </FormSegments>
-            <FormSegments
-              title="Provide Social Media Links"
-              icon={<Building2 className="w-4 h-4" />}
-            >
-              <div className="flex flex-col gap-5">
-                <TextInput id="facebook" label="Facebook" />
-                <TextInput id="twitter" label="Twitter" />
-                <TextInput id="linkedin" label="LinkedIn" />
-                <TextInput id="instagram" label="Instagram" />
-                <TextInput id="youtube" label="YouTube" />
-              </div>
-            </FormSegments>
+
             <Button
               text="Proceed to next step"
               frontIcon={<ArrowRight />}

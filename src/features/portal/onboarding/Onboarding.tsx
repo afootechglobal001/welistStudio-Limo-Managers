@@ -15,11 +15,17 @@ import { useRouter } from "next/navigation";
 import useToggle from "@/hooks/useToggle";
 import { Modal } from "@/components/dialog-box/Modal";
 import { ProvideCompanyDetails } from "./ProvideCompanyDetails";
+import { ContactPersonDetails } from "./ContactPersonDetails";
+import { PaymentGatewayDetails } from "./PaymentGatewayDetails";
+import { SelectSubscriptionPlan } from "./SelectSubscriptionPlan";
 
 export default function Onboarding() {
   const router = useRouter();
   const onboardingSuccessToggle = useToggle();
-  const onboardingModalToggle = useToggle();
+  const provideCompanyDetailsModalToggle = useToggle();
+  const contactPersonDetailsModalToggle = useToggle();
+  const paymentGatewayDetailsModalToggle = useToggle();
+  const selectSubscriptionPlanModalToggle = useToggle();
   const [progress, setProgress] = useState(0);
   const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = ONBOARDING_STEPS.length;
@@ -33,7 +39,13 @@ export default function Onboarding() {
   };
   const handleNextStep = (step: number) => {
     if (step === 1) {
-      onboardingModalToggle.open();
+      provideCompanyDetailsModalToggle.open();
+    } else if (step === 2) {
+      contactPersonDetailsModalToggle.open();
+    } else if (step === 3) {
+      paymentGatewayDetailsModalToggle.open();
+    } else if (step === 4) {
+      selectSubscriptionPlanModalToggle.open();
     }
   };
 
@@ -75,10 +87,30 @@ export default function Onboarding() {
           />
         </div>
       </section>
-      <Modal isOpen={onboardingModalToggle.isOpen}>
+      <Modal isOpen={provideCompanyDetailsModalToggle.isOpen}>
         <ProvideCompanyDetails
-          onClose={onboardingModalToggle.close}
-          isOpen={onboardingModalToggle.isOpen}
+          onClose={provideCompanyDetailsModalToggle.close}
+          isOpen={provideCompanyDetailsModalToggle.isOpen}
+          handleCompleteSteps={handleCompleteSteps}
+        />
+      </Modal>
+      <Modal isOpen={contactPersonDetailsModalToggle.isOpen}>
+        <ContactPersonDetails
+          onClose={contactPersonDetailsModalToggle.close}
+          isOpen={contactPersonDetailsModalToggle.isOpen}
+          handleCompleteSteps={handleCompleteSteps}
+        />
+      </Modal>
+      <Modal isOpen={paymentGatewayDetailsModalToggle.isOpen}>
+        <PaymentGatewayDetails
+          onClose={paymentGatewayDetailsModalToggle.close}
+          isOpen={paymentGatewayDetailsModalToggle.isOpen}
+          handleCompleteSteps={handleCompleteSteps}
+        />
+      </Modal>
+      <Modal isOpen={selectSubscriptionPlanModalToggle.isOpen}>
+        <SelectSubscriptionPlan
+          onClose={selectSubscriptionPlanModalToggle.close}
           handleCompleteSteps={handleCompleteSteps}
         />
       </Modal>

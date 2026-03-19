@@ -71,7 +71,7 @@ export function SelectSubscriptionPlan({
 
         {/* Content */}
         <div className="h-[calc(100%-65px)] overflow-y-auto bg-(--body-bg)">
-          <div className="h-full w-full py-15 px-5 flex flex-col gap-10 items-center">
+          <div className="w-full py-9 px-5 flex flex-col gap-10 items-center">
             <div className="flex gap-2 w-220 flex-col items-center justify-center">
               <h2 className="text-5xl font-bold-custom text-(--title-color) text-center leading-15">
                 Check Out Awesome Subscription Plans, And Get Started
@@ -216,6 +216,22 @@ export function SelectSubscriptionPlan({
                 ]}
                 action={handleProvidePaymentGatewayDetails}
               />
+            </div>
+
+            {/* Start 30-Day Trial Section */}
+            <div className="flex items-center gap-2">
+              <p className="text-center text-[14px]">
+                Start your 30-day free trial today — explore all features, no
+                credit card required!
+              </p>
+
+              <button
+                onClick={handleProvidePaymentGatewayDetails}
+                title="Start Free Trial"
+                className="text-(--secondary-color) font-semibold cursor-pointer hover:underline transition"
+              >
+                Start Free Trial
+              </button>
             </div>
           </div>
         </div>

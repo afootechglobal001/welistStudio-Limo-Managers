@@ -19,10 +19,10 @@ export const CompanySwitchCard: React.FC<CompanySwitchCardProps> = ({
   return (
     <div
       onClick={onClick}
-      className={`flex items-center justify-between p-3 border border-white/18 rounded-[14px] cursor-pointer hover:bg-white/5 transition
+      className={`flex items-center justify-between p-3 border rounded-[14px] cursor-pointer hover:bg-white/5 hover:border-(--secondary-color-light) transition
         ${
           active
-            ? "border-(--primary-color) bg-(--primary-color)/10"
+            ? "bg-(--primary-color-light) border-(--secondary-color-light)"
             : "border-white/18 hover:bg-white/5"
         }
       `}

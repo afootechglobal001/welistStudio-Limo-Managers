@@ -11,7 +11,7 @@ import useToggle from "@/hooks/useToggle";
 import { SwitchCompany } from "./switch/SwitchCompany";
 
 export const Header = () => {
-  const { clearAuth } = useAuthStore();
+  const { clearAuth, onboardingCompleted } = useAuthStore();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const switchCompanyModalToggle = useToggle();
@@ -24,30 +24,35 @@ export const Header = () => {
     <>
       <header className="bg-white/8 w-full h-15 flex justify-between items-center">
         <div className="flex items-center gap-2">
-          <div className="h-12 w-13 border border-white/20 bg-white/2 p-0.5 rounded-full overflow-hidden">
-            <Image
-              src="/body-pix/1stClassicLogo.png"
-              alt="Vector"
-              className="w-full h-full object-cover rounded-full"
-              width={0}
-              height={0}
-              unoptimized
-            />
-          </div>
+          {onboardingCompleted && (
+            <>
+              <div className="h-12 w-13 border border-white/20 bg-white/2 p-0.5 rounded-full overflow-hidden">
+                <Image
+                  src="/body-pix/1stClassicLogo.png"
+                  alt="Vector"
+                  className="w-full h-full object-cover rounded-full"
+                  width={0}
+                  height={0}
+                  unoptimized
+                />
+              </div>
 
-          <div className="flex flex-col">
-            <h2 className="text-[16px] font-bold-custom text-(--title-color)">
-              1st Classic Limo
-            </h2>
-            <span className="text-[12px]">COMP2026101500112</span>
-          </div>
+              <div className="flex flex-col">
+                <h2 className="text-[16px] font-bold-custom text-(--title-color)">
+                  1st Classic Limo
+                </h2>
+                <span className="text-[12px]">COMP2026101500112</span>
+              </div>
 
-          <Button
-            text="Switch"
-            size="sm"
-            onClick={() => switchCompanyModalToggle.open()}
-          />
+              <Button
+                text="Switch"
+                size="sm"
+                onClick={() => switchCompanyModalToggle.open()}
+              />
+            </>
+          )}
         </div>
+
         {/* //// user profile and settings, notification and FAQ icon */}
         <div className="flex items-center gap-2">
           <Link

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Dashboard from "@/features/portal/dashboard/Dashboard";
+import Billing from "@/features/portal/billing/Billing";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Limo Managers Client Portal",
+  title: "Billing - Limo Managers Client Portal",
   description:
-    "Access your dashboard to manage your limo fleet, track bookings, and oversee customer interactions. Stay organized and efficient with Limo Managers Client Portal.",
+    "Manage your billing information, payment methods, and subscription details in one place. Ensure seamless transactions and uninterrupted service for your customers.",
 };
 export default function Page() {
-  return <Dashboard />;
+  return <Billing />;
 }

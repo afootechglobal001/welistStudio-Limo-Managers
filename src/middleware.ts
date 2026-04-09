@@ -9,10 +9,8 @@ export function middleware(request: NextRequest) {
   const onboardingCompleted =
     request.cookies.get("onboardingCompleted")?.value === "true";
 
-  console.log("Middleware:", { pathname, userCookie, onboardingCompleted });
-
   // Allow public routes
-  if (pathname.startsWith("/login") || pathname.startsWith("/signup")) {
+  if (pathname.startsWith("/login") || pathname.startsWith("/sign-up")) {
     return NextResponse.next();
   }
   const dashboardUrl = new URL("/dashboard", request.url);

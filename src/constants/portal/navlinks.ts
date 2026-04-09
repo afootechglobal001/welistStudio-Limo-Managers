@@ -16,19 +16,6 @@ import {
   LogOut,
 } from "lucide-react"; // 👈 import icons
 
-export const NAV_LINKS = [
-  {
-    name: "Dashboard",
-    href: "/dashboard",
-    icon: Gauge,
-  },
-  {
-    name: "My Profile",
-    href: "/profile",
-    icon: UserStar,
-  },
-];
-
 export const SIDEBAR_TOP_LINKS = [
   {
     name: "Dashboard",
@@ -50,13 +37,13 @@ export const SIDEBAR_TOP_LINKS = [
   },
   {
     name: "Fleet Management",
-    href: "/fleet",
+    href: "/fleet-management",
     icon: Car,
     onboarded: true,
   },
   {
     name: "Drivers Management",
-    href: "/drivers",
+    href: "/drivers-management",
     icon: Users,
     onboarded: true,
   },
@@ -104,7 +91,7 @@ export const SIDEBAR_TOP_LINKS = [
   },
   {
     name: "API & Webhooks",
-    href: "/billing",
+    href: "/api-docs",
     icon: Webhook,
     onboarded: true,
   },

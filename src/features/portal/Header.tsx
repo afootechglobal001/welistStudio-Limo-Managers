@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/form";
 import { Modal } from "@/components/dialog-box/Modal";
 import useToggle from "@/hooks/useToggle";
-import { SwitchCompany } from "./switch/SwitchCompany";
+import { SwitchCompany } from "./company-profile/switch/SwitchCompany";
 
 export const Header = () => {
   const { clearAuth, onboardingCompleted } = useAuthStore();

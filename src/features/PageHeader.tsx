@@ -20,7 +20,7 @@ export const PageHeader = ({
 }: PageHeaderProps) => {
   return (
     <section
-      className={`relative overflow-hidden bg-white/5 backdrop-blur-sm border-b border-white/8 ${className} animate-fade-down shadow-[0px_0px_40px_rgba(0,0,0,0.075)]`}
+      className={`relative overflow-hidden bg-white/5 backdrop-blur-sm border-b border-white/8 ${className}  shadow-[0px_0px_40px_rgba(0,0,0,0.075)]`}
     >
       <div className="relative px-8 py-6">
         {addNavigation}

@@ -17,14 +17,10 @@ export default function Login() {
   // Redirect logged-in users
   useEffect(() => {
     if (user) {
+      <LoadingScreen message="Redirecting to dashboard..." />;
       router.push("/dashboard");
     }
   }, [user, router]);
-
-  // Show loading while redirecting
-  if (user) {
-    return <LoadingScreen message="Redirecting to dashboard..." />;
-  }
 
   return (
     <UserAuthWrapper>

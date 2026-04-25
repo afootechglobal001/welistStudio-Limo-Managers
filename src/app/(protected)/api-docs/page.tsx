@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import Dashboard from "@/features/portal/dashboard/Dashboard";
+import ApiDocs from "@/features/portal/api-docs/ApiDocs";
 
 export const metadata: Metadata = {
-  title: "Dashboard - Limo Managers Client Portal",
+  title: "API Docs - Limo Managers Client Portal",
   description:
-    "Access your dashboard to manage your limo fleet, track bookings, and oversee customer interactions. Stay organized and efficient with Limo Managers Client Portal.",
+    "Access our comprehensive API documentation to integrate Limo Managers with your existing systems and streamline your workflow.",
 };
 export default function Page() {
-  return <Dashboard />;
+  return <ApiDocs />;
 }

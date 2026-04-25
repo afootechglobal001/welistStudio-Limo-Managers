@@ -5,6 +5,7 @@ import {
   ChartNoAxesCombined,
   CircleChevronDown,
   Gauge,
+  MapPinCheck,
   Users,
 } from "lucide-react";
 import { PageHeader } from "@/features/PageHeader";
@@ -14,71 +15,28 @@ import { DASHBOARD_CARD_VARIANT } from "@/constants/portal/dashboard";
 import RevenueBarChart from "./RevenueBarChart";
 import FleetRevenueMatrix from "./FleetRevenueMatrix";
 import { FleetBookingsStatistics } from "./FleetBookingsStatistics";
-const generateRandomFleetData = (days = 30) => {
-  const data = [];
-  const today = new Date();
-
-  for (let i = days - 1; i >= 0; i--) {
-    const date = new Date(today);
-    date.setDate(today.getDate() - i);
-
-    // Random counts for each fleet type
-    const sedan = Math.floor(Math.random() * 6); // 0-5
-    const sprinter = Math.floor(Math.random() * 5); // 0-4
-    const suv = Math.floor(Math.random() * 4); // 0-3
-    const limosine = Math.floor(Math.random() * 2); // 0-1
-
-    // Amount could be a weighted sum of fleet counts
-    const amount = sedan * 500 + sprinter * 700 + suv * 800 + limosine * 1200;
-
-    data.push({
-      lastUpdatedDate: date.toISOString(),
-      amount,
-      sedan,
-      sprinter,
-      suv,
-      limosine,
-    });
-  }
-
-  return data;
+import { generateRandomFleetData } from "@/utils/generateRandomFleetData";
+import WalletAndSubscriptionPrompt from "./WalletAndSubscriptionPrompt";
+import { SortDirection, Table, TableColumn } from "@/components/table";
+import {
+  recentBookingsFilterType,
+  recentBookingsType,
+} from "@/types/portal/bookings";
+import { useMemo, useState } from "react";
+import { EmptyState } from "@/components/general-components/emptyState";
+import { recentBookingsData } from "@/constants/portal/bookings";
+import { NameAbbreviation } from "@/components/general-components/NameAbbreviation";
+import { statusColour } from "@/constants/statusColor";
+import { capitalizeWords, removeUnderscore } from "@/utils/helpers";
+import Pagination from "@/components/table/Paginations";
+const DEFAULT_FILTERS: recentBookingsFilterType = {
+  page: 1,
+  keyword: "",
+  sort: "date",
+  order: "desc",
 };
 export default function Dashboard() {
-  // const campaignReportDailyMatrix = [
-  //   {
-  //     lastUpdatedDate: "2025-06-23T10:30:00Z",
-  //     amount: 2186,
-  //     sedan: 2,
-  //     sprinter: 1,
-  //     suv: 3,
-  //     limosine: 0,
-  //   },
-  //   {
-  //     lastUpdatedDate: "2025-06-24T10:30:00Z",
-  //     amount: 3186,
-  //     sedan: 3,
-  //     sprinter: 2,
-  //     suv: 1,
-  //     limosine: 1,
-  //   },
-  //   {
-  //     lastUpdatedDate: "2025-06-25T10:30:00Z",
-  //     amount: 4186,
-  //     sedan: 4,
-  //     sprinter: 3,
-  //     suv: 2,
-  //     limosine: 0,
-  //   },
-  //   {
-  //     lastUpdatedDate: "2025-06-26T10:30:00Z",
-  //     amount: 5186,
-  //     sedan: 5,
-  //     sprinter: 4,
-  //     suv: 3,
-  //     limosine: 2,
-  //   },
-  // ];
-
+  const [filter, setFilter] = useState(DEFAULT_FILTERS);
   // Generate 30 days of random data
   const campaignReportDailyMatrix = generateRandomFleetData(15);
   const fleetRevenueMatrix = {
@@ -87,7 +45,123 @@ export default function Dashboard() {
     suv: 62678,
     limosine: 71234,
   };
+  const columns: TableColumn<recentBookingsType>[] = useMemo(
+    () => [
+      {
+        accessorKey: "bookingId",
+        header: "Booking ID",
+        sortable: true,
+        cell: ({ row }) => (
+          <div className="flex flex-col">
+            <p className="text-(--title-color) text-sm font-medium-custom">
+              {row.original.bookingId}
+            </p>
+            <p className="text-sm text-white/50">{row.original.date}</p>
+          </div>
+        ),
+      },
+      {
+        id: "customerName",
+        header: "Customer Name",
+        sortable: true,
+        cell: ({ row }) => {
+          const customerName = row.original.user.name;
+          return (
+            <div className="flex items-center gap-3">
+              <NameAbbreviation width={50} height={50} name={customerName} />
+              <div className="flex flex-col">
+                <p className="text-(--title-color) text-sm font-medium-custom">
+                  {customerName}
+                </p>
+                <p className="text-sm text-white/50">{row.original.user.id}</p>
+              </div>
+            </div>
+          );
+        },
+      },
+      {
+        accessorKey: "vehicleName",
+        header: "Vehicle Name",
+        sortable: true,
+        cell: ({ row }) => (
+          <p className="text-sm text-white/50">{row.original.vehicleName}</p>
+        ),
+      },
+      {
+        accessorKey: "pickupLocation",
+        header: "Pickup Location",
+        sortable: true,
+        cell: ({ row }) => (
+          <p className="text-sm text-white/50">{row.original.pickupLocation}</p>
+        ),
+      },
+      {
+        accessorKey: "dropoffLocation",
+        header: "Dropoff Location",
+        sortable: true,
+        cell: ({ row }) => (
+          <p className="text-sm text-white/50">
+            {row.original.dropoffLocation}
+          </p>
+        ),
+      },
 
+      {
+        accessorKey: "fare",
+        header: "Fare",
+        sortable: true,
+        cell: ({ row }) => {
+          const fare = row.original.fare;
+          return (
+            <div className="flex flex-col">
+              <p className="text-(--title-color) text-lg font-medium-custom">
+                {fare}
+              </p>
+              <p className="text-sm text-white/50 ">
+                <MapPinCheck className="inline-block w-4 h-4 text-(--active-color)" />{" "}
+                {row.original.miles} miles
+              </p>
+            </div>
+          );
+        },
+      },
+      {
+        id: "status",
+        header: "Status",
+        sortable: true,
+        cell: ({ row }) => {
+          const statusName = row.original.status ?? "";
+          const key = statusName.toLowerCase() as keyof typeof statusColour;
+          const statusColor = statusColour[key] || {
+            text: "text-gray-700",
+            bg: "bg-gray-100",
+          };
+
+          return (
+            <div className="flex items-center justify-center">
+              <button
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium-custom rounded-full transition-all duration-200 hover:scale-105 ${statusColor.text} ${statusColor.bg}`}
+              >
+                {removeUnderscore(capitalizeWords(statusName))}
+              </button>
+            </div>
+          );
+        },
+      },
+    ],
+    [],
+  );
+  const handleSorting = (
+    key: keyof recentBookingsType,
+    direction: SortDirection,
+  ) => {
+    setFilter((prev) => ({
+      ...DEFAULT_FILTERS,
+      ...prev,
+      sort: key,
+      order: direction,
+    }));
+  };
   return (
     <PortalWrapper>
       <PageHeader
@@ -98,8 +172,9 @@ export default function Dashboard() {
         }
         title={`Welcome back, Mike!`}
         description="Here's an overview of your dashboard. You can manage your limo fleet, track bookings, and oversee customer interactions all in one place."
-        actions={<div>Wallet balance and subscription expiry goes here</div>}
+        actions={<WalletAndSubscriptionPrompt />}
       />
+
       <section className="p-8 text-(text-color) flex flex-col gap-8">
         <section className="flex gap-5 w-full">
           <div className="w-[calc(100%-400px)] flex flex-col gap-5">
@@ -225,8 +300,33 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <div className="w-full h-75 bg-white/5 rounded-lg flex items-center justify-center text-gray-500">
-          Dashboard content goes here
+        <div className="w-full min-h-75 bg-white/5 rounded-lg  text-gray-500">
+          <Table
+            columns={columns}
+            data={recentBookingsData}
+            noDataMessage={
+              <EmptyState
+                title="No Records Found"
+                message="No records match your current filters. Try adjusting your search criteria"
+              />
+            }
+            // onRowClick={handleRowClick}
+            onSort={handleSorting}
+            stickyColumns={{ last: true }}
+            initialSortState={{
+              sortKey: filter?.sort ?? null,
+              sortDirection: filter?.order ?? null,
+            }}
+          />{" "}
+          {recentBookingsData.length > 0 && (
+            <div className="px-2 py-2 border-t border-white/10">
+              <Pagination
+                currentPage={1}
+                totalPages={31}
+                onPageChange={() => null}
+              />
+            </div>
+          )}
         </div>
       </section>
     </PortalWrapper>

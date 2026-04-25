@@ -58,7 +58,7 @@ export function Table<T>({
           <div
             className={`h-3 w-3 flex items-center justify-center transition-all duration-200 ${
               isAsc
-                ? "text-[var(--primary-color)] scale-110"
+                ? "text-(--primary-color) scale-110"
                 : "text-gray-400 group-hover:text-gray-600"
             }`}
           >
@@ -69,7 +69,7 @@ export function Table<T>({
           <div
             className={`h-3 w-3 flex items-center justify-center transition-all duration-200 ${
               isDesc
-                ? "text-[var(--primary-color)] scale-110"
+                ? "text-(--primary-color) scale-110"
                 : "text-gray-400 group-hover:text-gray-600"
             }`}
           >
@@ -82,9 +82,7 @@ export function Table<T>({
           <div className="ml-1">
             <div
               className={`h-1.5 w-1.5 rounded-full transition-all duration-200 ${
-                isAsc
-                  ? "bg-[var(--primary-color)]"
-                  : "bg-[var(--primary-color)]"
+                isAsc ? "bg-(--primary-color)" : "bg-(--primary-color)"
               }`}
             />
           </div>
@@ -104,32 +102,32 @@ export function Table<T>({
     if (stickyColumns.first && isFirst) {
       const zIndex = isHeader ? "z-40" : "z-0";
       stickyClasses += `sticky left-0 ${zIndex} ${
-        !isHeader ? "bg-white" : "bg-gray-50"
-      } border-r-2 border-gray-100`;
+        !isHeader ? "bg-white/20" : "bg-white/20"
+      } border-r-2 border-white/20`;
     }
 
     if (stickyColumns.last && isLast) {
       const zIndex = isHeader ? "z-40" : "z-0";
       stickyClasses += `sticky right-0 ${zIndex} ${
-        !isHeader ? "bg-white" : "bg-gray-50"
-      } border-l-2 border-gray-100`;
+        !isHeader ? "bg-white/10" : "bg-white/20"
+      } border-l-2 border-white/20`;
     }
 
     return stickyClasses;
   };
 
   return (
-    <div className="w-full shadow-sm overflow-hidden bg-white">
+    <div className="w-full shadow-sm overflow-hidden bg-none rounded-lg ">
       <div className="max-h-[75vh] min-h-[50vh] overflow-x-auto overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
         <table className="w-full text-left">
           <thead className="sticky top-0 z-10">
-            <tr className="bg-gray-50 border-b border-t border-gray-200">
+            <tr className="bg-white/20">
               {columns?.map((column, columnIndex) => (
                 <th
                   key={column.id || column.accessorKey?.toString()}
-                  className={`px-6 py-4 text-sm font-medium-custom text-gray-700 ${
+                  className={`px-6 py-4 text-sm font-medium-custom text-(--title-color) ${
                     column.sortable
-                      ? "cursor-pointer hover:bg-gray-100 transition-all duration-200 group"
+                      ? "cursor-pointer hover:bg-white/10 transition-all duration-200 group"
                       : ""
                   } ${getStickyClasses(columnIndex, true)}`}
                   style={{
@@ -151,7 +149,7 @@ export function Table<T>({
                         : column.header}
                     </span>
                     {column.sortable && (
-                      <div className="flex items-center gap-1 ml-1 opacity-60 group-hover:opacity-100 transition-opacity duration-200 flex-shrink-0">
+                      <div className="flex items-center gap-1 ml-1 opacity-60 group-hover:opacity-100 transition-opacity duration-200 shrink-0">
                         {getSortIcon(column)}
                       </div>
                     )}
@@ -161,7 +159,7 @@ export function Table<T>({
             </tr>
           </thead>
 
-          <tbody className="bg-white divide-y divide-gray-100">
+          <tbody className="bg-none divide-y divide-white/20">
             {isLoading ? (
               <tr>
                 <td colSpan={columns.length} className="py-12">
@@ -192,7 +190,7 @@ export function Table<T>({
                       onClick={() => onRowClick?.(row)}
                       className={` group transition-all duration-200  ${
                         onRowClick
-                          ? "cursor-pointer hover:bg-gray-100 hover:shadow-sm"
+                          ? "cursor-pointer hover:bg-white/10 hover:shadow-sm"
                           : "cursor-default"
                       }`}
                     >

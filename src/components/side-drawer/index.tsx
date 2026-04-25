@@ -2,7 +2,7 @@ import { useClickOutside } from "@/hooks/useClickOutside";
 import { useScrollLock } from "@/hooks/useScrollLock";
 import { ReactNode, useRef } from "react";
 import { createPortal } from "react-dom";
-import { Button } from "../form";
+import { X } from "lucide-react";
 
 interface SideDrawerProps {
   children: ReactNode;
@@ -40,7 +40,7 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[1001]  animate-fade-right"
+      className="fixed inset-0 z-1001  animate-fade-right"
       role="dialog"
       aria-modal="true"
     >
@@ -53,21 +53,21 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
       {/* Drawer */}
       <div
         ref={sideDrawerRef}
-        className={`h-screen fixed right-0 top-0 bg-white shadow-xl transition-transform duration-200 ease-in-out transform ${
+        className={`h-screen fixed right-0 top-0 bg-(--body-bg) shadow-xl transition-transform duration-200 ease-in-out transform ${
           isOpen ? "translate-x-0" : "translate-x-full"
         } ${className}`}
         style={{ width }}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 bg-white">
+        <div className="flex items-center justify-between p-4 border-b border-white/20 bg-white/8">
           <div className="flex items-center gap-3">
             {icon && (
-              <div className="flex h-7 w-7 items-center justify-center rounded-2xl bg-gradient-to-br from-[var(--primary-color)]  to-[var(--secondary-color)] shadow-xl">
+              <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-linear-to-br from-(--primary-color)  to-(--secondary-color) shadow-xl">
                 {icon}
               </div>
             )}
             {title && (
-              <h2 className="text-lg font-medium-custom text-[var(--title-color)]">
+              <h2 className="text-lg font-medium-custom text-(--title-color)">
                 {title}
               </h2>
             )}
@@ -77,19 +77,20 @@ export const SideDrawer: React.FC<SideDrawerProps> = ({
             {additionalAction && (
               <div className="flex items-center gap-2">{additionalAction}</div>
             )}
-            <Button
-              size="sm"
-              variant="secondary"
-              text="Cancel"
+            <button
               onClick={onClose}
-            />
+              className="cursor-pointer border-none bg-linear-to-br from-(--primary-color)  to-(--secondary-color) bg-size-[200%_100%] bg-right text-white rounded-full text-xs p-2 px-3 whitespace-nowrap flex gap-1.5 hover:gap-3 duration-200"
+            >
+              <span className="flex items-center">
+                <X size={16} />
+              </span>
+              <span>Close</span>
+            </button>
           </div>
         </div>
 
         {/* Content */}
-        <div className="h-[calc(100%-32px)] overflow-y-auto p-7 px-6 pb-0">
-          {children}
-        </div>
+        <div className="h-[calc(100%-32px)] overflow-y-auto ">{children}</div>
       </div>
     </div>,
     document.body,

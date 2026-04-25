@@ -5,11 +5,11 @@ import { ChevronDown, Loader2, Search, X } from "lucide-react";
 import { useState, useMemo, useEffect, forwardRef, useRef } from "react";
 import { Control, Controller, FieldValues, Path } from "react-hook-form";
 
-type MessageType = "info" | "success" | "warning" | "error";
+export type MessageType = "info" | "success" | "warning" | "error";
 
 type BaseProps<TFieldValues extends FieldValues> = Omit<
   React.SelectHTMLAttributes<HTMLSelectElement>,
-  "name"
+  "name" | "size"
 > & {
   id?: string;
   label?: string;
@@ -24,6 +24,9 @@ type BaseProps<TFieldValues extends FieldValues> = Omit<
   className?: string;
   placeholder?: string;
   disabled?: boolean;
+  size?: "sm" | "md";
+  clearable?: boolean;
+  required?: boolean; // ✅ added
 };
 
 interface OptionWithoutData {
@@ -89,8 +92,12 @@ function FormSelectInner<TFieldValues extends FieldValues, TOption = unknown>(
     className,
     placeholder,
     disabled = false,
+    size = "md",
+    clearable = true,
+    required = false, // ✅ added
     ...rest
   } = props;
+
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -119,35 +126,63 @@ function FormSelectInner<TFieldValues extends FieldValues, TOption = unknown>(
       name={name}
       control={control}
       render={({ field: { onChange, value }, fieldState: { error } }) => (
-        <div className={`flex flex-col w-full relative`} ref={selectRef}>
+        <div className="flex flex-col w-full relative" ref={selectRef}>
           <div
-            className={`relative rounded-md bg-slate-50 transition-all duration-200 ${
-              !isOperator ? "border-2 border-gray-200" : ""
-            } ${error ? getMessageColor("error") : borderClass} ${
-              className ?? "w-full"
-            }
-                focus-within:border-mtn-500 focus-within:ring-0 focus-within:bg-white focus-within:border-2`}
+            className={`relative w-full 
+              rounded-md bg-(--primary-color)
+              transition-all duration-200
+              ${!isOperator ? "border-2 border-gray-500" : ""}
+              ${
+                error ? getMessageColor("error") : borderClass
+              } ${className ?? ""}
+              ${
+                error || message
+                  ? "border-red-500"
+                  : "focus-within:border-(--secondary-color)"
+              }
+              focus-within:ring-0
+              focus-within:bg-(--primary-color)
+              focus-within:border-2
+            `}
           >
-            <label
-              htmlFor={id}
-              className="absolute -top-2 left-3 text-xs text-gray-600 bg-white px-1 z-30"
-            >
-              {label}
-            </label>
+            {/* ✅ Label */}
+            {label && (
+              <label
+                htmlFor={id}
+                className={`absolute -top-2.5 bg-(--primary-color) left-3 
+                  text-(--text-color) duration-100 transform text-[13px] px-2
+                `}
+              >
+                {label}
+                {required && (
+                  <span
+                    className={`ml-1 ${
+                      error || message ? "text-red-500" : "text-gray-400"
+                    }`}
+                  >
+                    *
+                  </span>
+                )}
+              </label>
+            )}
 
+            {/* ✅ Trigger */}
             <button
               type="button"
-              className={`w-full text-left p-4 py-5 text-sm text-black bg-white rounded-lg border-0 focus:outline-none peer flex justify-between items-center ${
+              className={`w-full text-left ${
+                size === "sm" ? "p-3 py-3 text-sm" : "p-4 py-5 text-sm"
+              } text-white bg-(--primary-color) rounded-lg border-0 focus:outline-none flex justify-between items-center ${
                 disabled ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={!disabled ? () => setIsOpen((prev) => !prev) : undefined}
             >
-              <span>
+              <span className={`${!value ? "text-gray-400" : ""}`}>
                 {options.find((opt) => opt.value === value)?.label ||
                   placeholder}
               </span>
+
               <div className="flex items-center gap-2">
-                {value && (
+                {clearable && value && (
                   <div
                     role="button"
                     tabIndex={0}
@@ -156,45 +191,49 @@ function FormSelectInner<TFieldValues extends FieldValues, TOption = unknown>(
                       onChange("");
                       setQuery("");
                     }}
-                    className="p-1 hover:bg-gray-100 rounded-full transition-colors duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-mtn-500 focus:ring-offset-2"
-                    title="Clear selection"
-                    aria-label="Clear selection"
+                    className="p-1 hover:bg-gray-100 rounded-full cursor-pointer"
                   >
-                    <X className="w-3 h-3 text-gray-500 hover:text-gray-700" />
+                    <X className="w-3 h-3 text-gray-500" />
                   </div>
                 )}
+
                 <ChevronDown
-                  className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${
+                  className={`w-4 h-4 text-gray-400 transition-transform ${
                     isOpen ? "rotate-180" : ""
                   }`}
-                  size={20}
                 />
               </div>
             </button>
 
+            {/* ✅ Dropdown */}
             {isOpen && (
-              <div className="relative z-50 top-full left-0 w-full bg-white border border-gray-300 rounded-md mt-1 shadow-lg max-h-60 overflow-auto">
+              <div className="absolute z-50 top-full left-0 w-full bg-(--primary-color) border border-gray-300 rounded-md mt-1 shadow-lg max-h-60 overflow-auto">
                 <input
                   ref={searchInputRef}
                   type="text"
                   placeholder={searchPlaceholder}
-                  className="w-full p-2 border-b border-gray-200 text-sm outline-none"
+                  className={`w-full ${
+                    size === "sm" ? "p-2 text-xs" : "p-2 text-sm"
+                  } border-b border-gray-200 outline-none`}
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   disabled={isLoading || disabled}
                 />
-                <ul className="max-h-48 overflow-y-auto ">
+
+                <ul className="max-h-48 overflow-y-auto">
                   {isLoading ? (
                     <li className="p-2 text-gray-500 text-sm flex justify-center items-center gap-2">
-                      <Loader2 className="w-4 h-4 animate-spin text-mtn-500" />
-                      <span className="text-sm">Loading...</span>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Loading...
                     </li>
                   ) : filteredOptions.length > 0 ? (
                     filteredOptions.map((opt) => (
                       <li
                         key={opt.value}
-                        className={`p-2 hover:bg-mtn-100 text-sm cursor-pointer ${
-                          value === opt.value ? "bg-mtn-50 font-medium" : ""
+                        className={`p-2 px-3 cursor-pointer ${
+                          value === opt.value
+                            ? "bg-white/30 font-medium"
+                            : "hover:bg-white/20"
                         }`}
                         onClick={() => {
                           onChange(opt.value);
@@ -209,8 +248,8 @@ function FormSelectInner<TFieldValues extends FieldValues, TOption = unknown>(
                     ))
                   ) : (
                     <li className="p-2 text-gray-500 text-sm flex justify-center items-center gap-2">
-                      <Search className="w-4 h-4 text-gray-500" />
-                      <span className="text-sm">No results found</span>
+                      <Search className="w-4 h-4" />
+                      No results found
                     </li>
                   )}
                 </ul>
@@ -218,6 +257,7 @@ function FormSelectInner<TFieldValues extends FieldValues, TOption = unknown>(
             )}
           </div>
 
+          {/* ✅ Message */}
           {(error?.message || message) && (
             <p
               className={`mt-1 text-xs ${
@@ -228,12 +268,13 @@ function FormSelectInner<TFieldValues extends FieldValues, TOption = unknown>(
             </p>
           )}
 
-          {/* Hidden select for form compatibility */}
+          {/* ✅ Hidden select */}
           <select
             id={id}
             ref={ref}
             value={value}
             onChange={onChange}
+            required={required} // ✅ important
             className="hidden"
             disabled={disabled}
             {...rest}

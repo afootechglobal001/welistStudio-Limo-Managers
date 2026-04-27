@@ -29,8 +29,16 @@ export default function CompanyProfile() {
 
       <section className="p-8 text-(text-color) flex flex-col gap-8">
         <div className="w-full grid grid-cols-2 gap-5">
-          {COMPANY_LIST.map((company, index) => (
-            <CompanyCard key={index} {...company} />
+          {COMPANY_LIST.map((company) => (
+            <CompanyCard
+              key={company.companyId}
+              name={company.name}
+              logo={company.logo}
+              location={company.location}
+              website={company.website}
+              email={company.email}
+              stats={company.stats}
+            />
           ))}
         </div>
       </section>

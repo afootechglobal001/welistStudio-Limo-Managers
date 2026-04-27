@@ -29,12 +29,12 @@ export function CompanyCard({
   stats,
 }: CompanyCardProps) {
   return (
-    <div className="flex gap-4 p-5 bg-white/2 border border-white/20 rounded-[20px] hover:bg-white/5 hover:border-(--secondary-color-light) transition-all duration-300">
-      <div className="flex w-35 items-center justify-center border rounded-[20px] border-white/20">
+    <div className="flex gap-4 p-4.25 bg-white/2 border border-white/20 rounded-2xl hover:bg-white/5 hover:border-(--secondary-color-light) transition-all duration-300">
+      <div className="flex w-35 items-center justify-center border rounded-2xl border-white/20 overflow-hidden">
         <Image
           src={logo}
           alt={name}
-          className="w-full h-full object-cover rounded-[20px]"
+          className="w-full h-full object-cover rounded-2xl"
           width={0}
           height={0}
           unoptimized
@@ -42,7 +42,7 @@ export function CompanyCard({
       </div>
 
       {/* Content */}
-      <div className="flex flex-col gap-4 w-[calc(100%-156px)]">
+      <div className="flex flex-col gap-6 w-[calc(100%-156px)]">
         <div className="flex flex-col gap-2">
           <div className="w-full flex items-center justify-between">
             <h2 className="flex items-center text-3xl font-bold-custom text-(--title-color)">
@@ -50,7 +50,10 @@ export function CompanyCard({
             </h2>
 
             <div className="flex items-center gap-3">
-              <button className="cursor-pointer border-none bg-linear-to-br from-(--primary-color) to-(--secondary-color) bg-size-[200%_100%] hover:bg-size-[150%_100%] bg-right text-white rounded-full text-[14px] h-8 px-5 flex items-center justify-center duration-200">
+              <button
+                title="Click to view company details"
+                className="cursor-pointer border-none bg-linear-to-br from-(--primary-color) to-(--secondary-color) bg-size-[200%_100%] hover:bg-size-[150%_100%] bg-right text-white rounded-full text-[14px] h-8 px-5 flex items-center justify-center duration-200"
+              >
                 View
               </button>
 
@@ -60,7 +63,7 @@ export function CompanyCard({
             </div>
           </div>
 
-          <div className="flex gap-4 flex-wrap">
+          <div className="flex gap-3 text-sm flex-wrap leading-0">
             <div className="flex gap-1 items-center">
               <MapPin className="h-4 w-4 text-(--secondary-color)" />
               <span>{location}</span>
@@ -91,7 +94,7 @@ export function CompanyCard({
                 <div className="flex gap-6 items-center justify-between">
                   <div className="flex gap-2 items-center">
                     <Icon className="h-6 w-6 p-1 text-(--secondary-color) bg-white/8 border border-white/20 rounded-lg" />
-                    <h4 className="text-[13px]">{item.label}</h4>
+                    <h4 className="text-[14px]">{item.label}</h4>
                   </div>
 
                   <span className="py-1 px-3 font-bold-custom text-(--secondary-color) text-sm bg-white/8 border border-white/20 rounded-lg">

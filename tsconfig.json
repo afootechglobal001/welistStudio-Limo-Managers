@@ -28,7 +28,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts"
+    "**/*.mts",
+    "src/features/portal/fleet-management/fleet"
   ],
   "exclude": ["node_modules"]
 }

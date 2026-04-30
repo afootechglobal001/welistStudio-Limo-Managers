@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Fleet from "@/features/portal/fleet-management/fleet.tsx/Fleet";
+import Fleet from "@/features/portal/fleet-management/fleet/Fleet";
 
 export const metadata: Metadata = {
   title: "Fleet Management - Limo Managers Client Portal",

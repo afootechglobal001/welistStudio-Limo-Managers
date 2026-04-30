@@ -11,7 +11,7 @@ export const FormSegments: React.FC<formSegmentsProps> = ({
 }) => {
   return (
     <div className="flex flex-col gap-2  bg-white/8 border border-white/20 rounded-xl">
-      <p className="border-b border-white/20 text-sm text-(--title-color) p-4 flex items-center gap-2 bg-white/10">
+      <p className="border-b border-white/20 text-sm text-(--title-color) p-4 flex items-center gap-2 rounded-xl rounded-b-none bg-white/10">
         {icon && <span className="text-(--secondary-color)">{icon}</span>}
         <span>{title}</span>
       </p>

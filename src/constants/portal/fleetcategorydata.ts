@@ -12,7 +12,7 @@ export const FLEET_CATEGORY_LIST = [
     categoryName: "Executive Class SUV",
     categoryCode: "LIMO-6",
     categoryDescription: "Luxury SUV for executive travel",
-    numOfVehicles: 10,
+    numOfVehicles: 0,
     statusName: "ACTIVE",
   },
   {

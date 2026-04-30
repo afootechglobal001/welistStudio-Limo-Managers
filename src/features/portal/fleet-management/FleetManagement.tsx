@@ -7,12 +7,17 @@ import { FLEET_CATEGORY_LIST } from "@/constants/portal/fleetcategorydata";
 import { FleetCategoryCard } from "./FleetCategoryCard";
 import { useRouter } from "next/navigation";
 import { PagesContentSegments } from "@/components/general-components/pagesContentSegments";
+import { Modal } from "@/components/dialog-box/Modal";
+import { FleetCategoryRegistration } from "./FleetCategoryRegistration";
+import useToggle from "@/hooks/useToggle";
 
 export default function FleetManagement() {
   const router = useRouter();
   const viewVehicles = (id: string) => {
     router.push(`/fleet-management/${id}`);
   };
+
+  const fleetCategoryRegistrationModalToggle = useToggle();
 
   return (
     <PortalWrapper>
@@ -29,7 +34,9 @@ export default function FleetManagement() {
             placeHolder="Search Here"
             actionBtn
             buttonText="Add New Fleet Category"
-            onButtonClick={() => {}}
+            onButtonClick={() => {
+              fleetCategoryRegistrationModalToggle.open();
+            }}
           />
         }
       />
@@ -50,6 +57,13 @@ export default function FleetManagement() {
           </div>
         </PagesContentSegments>
       </section>
+
+      <Modal isOpen={fleetCategoryRegistrationModalToggle.isOpen}>
+        <FleetCategoryRegistration
+          onClose={fleetCategoryRegistrationModalToggle.close}
+          isOpen={fleetCategoryRegistrationModalToggle.isOpen}
+        />
+      </Modal>
     </PortalWrapper>
   );
 }

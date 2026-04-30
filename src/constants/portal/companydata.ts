@@ -1,5 +1,3 @@
-import { Clock, Car, Users } from "lucide-react";
-
 export const COMPANY_LIST = [
   {
     companyId: "COMP2026101500112",
@@ -9,10 +7,11 @@ export const COMPANY_LIST = [
     website: "1stclassiclimos.com",
     email: "info@1stclassiclimos.com",
     stats: [
-      { label: "Pending Reservations", value: 7, icon: Clock },
-      { label: "Fleets", value: 10, icon: Car },
-      { label: "Drivers", value: 10, icon: Users },
+      { label: "Pending Reservations", value: 9 },
+      { label: "Fleets", value: 12 },
+      { label: "Drivers", value: 11 },
     ],
+    statusName: "ACTIVE",
   },
   {
     companyId: "COMP2026101500113",
@@ -22,10 +21,11 @@ export const COMPANY_LIST = [
     website: "cityonelimo.com",
     email: "info@cityonelimo.com",
     stats: [
-      { label: "Pending Reservations", value: 5, icon: Clock },
-      { label: "Fleets", value: 8, icon: Car },
-      { label: "Drivers", value: 12, icon: Users },
+      { label: "Pending Reservations", value: 9 },
+      { label: "Fleets", value: 12 },
+      { label: "Drivers", value: 11 },
     ],
+    statusName: "ACTIVE",
   },
   {
     companyId: "COMP2026101500114",
@@ -35,9 +35,10 @@ export const COMPANY_LIST = [
     website: "4-seasonslimos.com",
     email: "info@4-seasonslimos.com",
     stats: [
-      { label: "Pending Reservations", value: 9, icon: Clock },
-      { label: "Fleets", value: 12, icon: Car },
-      { label: "Drivers", value: 11, icon: Users },
+      { label: "Pending Reservations", value: 9 },
+      { label: "Fleets", value: 12 },
+      { label: "Drivers", value: 11 },
     ],
+    statusName: "ACTIVE",
   },
 ];

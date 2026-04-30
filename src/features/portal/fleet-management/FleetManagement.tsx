@@ -40,9 +40,9 @@ export default function FleetManagement() {
           icon={<Car className="w-4 h-4" />}
         >
           <div className="w-full grid grid-cols-3 gap-5">
-            {FLEET_CATEGORY_LIST.map((category) => (
+            {FLEET_CATEGORY_LIST.map((category, index) => (
               <FleetCategoryCard
-                key={category.categoryId}
+                key={index}
                 fleetCategory={category}
                 onViewVehicles={viewVehicles}
               />

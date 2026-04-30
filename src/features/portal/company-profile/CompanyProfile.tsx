@@ -34,16 +34,8 @@ export default function CompanyProfile() {
           icon={<Building className="w-4 h-4" />}
         >
           <div className="w-full flex flex-wrap gap-4">
-            {COMPANY_LIST.map((company) => (
-              <CompanyCard
-                key={company.companyId}
-                name={company.name}
-                logo={company.logo}
-                location={company.location}
-                website={company.website}
-                email={company.email}
-                stats={company.stats}
-              />
+            {COMPANY_LIST.map((company, index) => (
+              <CompanyCard key={index} company={company} />
             ))}
           </div>
         </PagesContentSegments>

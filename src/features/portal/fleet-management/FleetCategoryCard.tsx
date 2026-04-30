@@ -2,15 +2,10 @@ import { FleetCategoryItems } from "@/types/portal/fleet-management";
 import { Car, PencilLine } from "lucide-react";
 
 type Props = {
-  key: string;
   fleetCategory: FleetCategoryItems;
   onViewVehicles: (id: string) => void;
 };
-export const FleetCategoryCard = ({
-  key,
-  fleetCategory,
-  onViewVehicles,
-}: Props) => {
+export const FleetCategoryCard = ({ fleetCategory, onViewVehicles }: Props) => {
   const {
     categoryId,
     categoryName,
@@ -20,10 +15,7 @@ export const FleetCategoryCard = ({
     numOfVehicles,
   } = fleetCategory;
   return (
-    <div
-      key={key}
-      className="flex gap-4 p-4 bg-(--primary-color) border border-white/15 rounded-xl hover:bg-white/1 hover:border-(--secondary-color-light) transition-all duration-300"
-    >
+    <div className="flex gap-4 p-4 bg-(--primary-color) border border-white/15 rounded-xl hover:bg-white/1 hover:border-(--secondary-color-light) transition-all duration-300">
       <div className="w-full flex flex-col gap-3">
         <div className="w-full flex items-center justify-between">
           <div className="flex flex-col">

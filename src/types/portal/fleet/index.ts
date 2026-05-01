@@ -1,8 +1,18 @@
-export type FleetCategoryItems = {
-  categoryId: string;
+export type FleetItems = {
+  fleetId: string;
   categoryName: string;
   categoryCode: string;
-  categoryDescription: string;
-  numOfVehicles: number;
+  carMake: string;
+  carImage: string;
+  numOfPassenger: number;
+  numOfLuggage: number;
+  description: string;
   statusName: string;
+};
+
+export type fleetFilterType = {
+  page: number;
+  keyword: string;
+  sort: string;
+  order: "asc" | "desc" | null;
 };

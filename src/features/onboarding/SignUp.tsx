@@ -34,7 +34,7 @@ export default function SignUp() {
           </p>
         </div>
 
-        <div className="flex items-center justify-between gap-4">
+        <div className="w-full flex items-center justify-between gap-4">
           <TextInput
             id="text"
             label="First Name"

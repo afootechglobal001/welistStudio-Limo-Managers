@@ -15,7 +15,7 @@ export const FleetCategoryCard = ({ fleetCategory, onViewVehicles }: Props) => {
     numOfVehicles,
   } = fleetCategory;
   return (
-    <div className="flex gap-4 p-4 bg-(--primary-color) border border-white/15 rounded-xl hover:bg-white/4 transition-all duration-300">
+    <div className="flex gap-4 p-4 bg-(--primary-color) border border-white/15 rounded-xl hover:bg-white/3 transition-all duration-300">
       <div className="w-full flex flex-col gap-3">
         <div className="w-full flex justify-between">
           <div className="flex flex-col">

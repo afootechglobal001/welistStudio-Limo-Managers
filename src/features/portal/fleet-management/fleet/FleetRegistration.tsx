@@ -33,10 +33,14 @@ export function FleetRegistration({
   } = useForm<FleetRegistrationType>({
     defaultValues: {
       categoryId: "",
-      fleetName: "",
+      carMake: "",
+      carModel: "",
+      carYear: undefined,
+      plateNumber: "",
       noOfPassenger: undefined,
       noOfLuggage: undefined,
       description: "",
+      provider: "",
       statusId: "",
     },
     resolver: zodResolver(
@@ -107,11 +111,33 @@ export function FleetRegistration({
                   options={FLEET_CATEGORY}
                 />
                 <TextInput
-                  id="fleetName"
-                  label="Fleet Name"
+                  id="carMake"
+                  label="Car Make"
                   required
-                  {...register("fleetName")}
-                  message={errors.fleetName?.message}
+                  {...register("carMake")}
+                  message={errors.carMake?.message}
+                />
+                <TextInput
+                  id="carModel"
+                  label="Car Model"
+                  required
+                  {...register("carModel")}
+                  message={errors.carModel?.message}
+                />
+                <TextInput
+                  id="carYear"
+                  label="Car Year"
+                  required
+                  {...register("carYear")}
+                  message={errors.carYear?.message}
+                />
+                <TextInput id="carColor" label="Car Color" />
+                <TextInput
+                  id="plateNumber"
+                  label="Plate Number"
+                  required
+                  {...register("plateNumber")}
+                  message={errors.plateNumber?.message}
                 />
                 <TextInput
                   id="noOfPassenger"
@@ -135,6 +161,16 @@ export function FleetRegistration({
                   required
                   {...register("description")}
                   message={errors.description?.message}
+                />
+                <TextInput
+                  id="affilatedBaseNumber"
+                  label="Affilated Base Number"
+                />
+                <TextInput id="expiryDate" label="Exp Date" />
+                <TextInput id="vin" label="VIN" />
+                <TextInput
+                  id="odometer"
+                  label="Odometer (Miles or Kilometers)"
                 />
                 <FormSelect
                   id="statusId"
@@ -205,6 +241,40 @@ export function FleetRegistration({
                     </div>
                   </div>
                 </FormSegments>
+              </div>
+            </FormSegments>
+
+            <FormSegments
+              title="Provide Contact Information"
+              icon={<Car className="w-4 h-4" />}
+            >
+              <div className="flex flex-col gap-5">
+                <TextInput id="cellularPhione" label="Cellular Phone" />
+                <FormSelect
+                  id="provider"
+                  label="Provider"
+                  placeholder="Select Here"
+                  {...register("provider")}
+                  control={control}
+                  message={errors.provider?.message}
+                  options={STATUS}
+                />
+                <TextInput id="emailAddress" label="Email Address" />
+                <TextInput id="twoWayRadioId" label="Two Way Radio ID" />
+              </div>
+            </FormSegments>
+
+            <FormSegments
+              title="Provide Insurance Information"
+              icon={<Car className="w-4 h-4" />}
+            >
+              <div className="flex flex-col gap-5">
+                <TextInput id="insuredBy" label="Insured By" />
+                <TextInput id="policyNo" label="Policy No" />
+                <TextInput
+                  id="policyExpirationDate"
+                  label="Policy Expiration Date"
+                />
               </div>
             </FormSegments>
             <Button
